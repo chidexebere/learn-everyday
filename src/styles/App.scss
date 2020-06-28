@@ -1,0 +1,17 @@
+@charset "utf-8";
+// Bulma
+@import "../../node_modules/bulma/sass/utilities/_all.sass";
+@import "../../node_modules/bulma/sass/base/_all.sass";
+
+@import "./utils/variables.scss";
+@import "./utils/mixins.scss";
+
+@import "./base/base.scss";
+@import "./base/typography.scss";
+
+@import "./layout/main.scss";
+@import "./elements/button.scss";
+@import "./elements/box.scss";
+
+@import "./layout/footer.scss";
+@import "./components/navbar.scss";
