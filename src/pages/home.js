@@ -1,24 +1,27 @@
 import React from "react";
 import Box from "../elements/Box";
-import Button from "../elements/Button";
-import NavBar from "../components/NavBar";
-import Footer from "../layout/Footer";
 
-function Home() {
+const Home = () => {
 	return (
 		<div className="home">
-			We Learn Everyday
-			<Box text="Past questions" />
-			<Button text="learn" type="is-primary" />
-			<Footer>
-				<NavBar>
-					<span className="icon">
-						<i className="fas fa-home"></i>
-					</span>
-				</NavBar>
-			</Footer>
+			<h2 className="home__title">Select Quiz</h2>
+			<Box text="Past Questions">
+				<span className="icon">
+					<i className="fa fa-chevron-right"></i>
+				</span>
+			</Box>
+			<Box text="World History">
+				<span className="icon">
+					<i className="fa fa-chevron-right"></i>
+				</span>
+			</Box>
+			<Box text="Nigerian History">
+				<span className="icon">
+					<i className="fa fa-chevron-right"></i>
+				</span>
+			</Box>
 		</div>
 	);
-}
+};
 
 export default Home;

@@ -1,1 +1,10 @@
 @import "../../../node_modules/bulma/sass/elements/box.sass";
+
+.box {
+	font-size: 3rem;
+	text-align: center;
+	background-color: cyan;
+	width: 80%;
+	display: flex;
+	justify-content: space-between;
+}

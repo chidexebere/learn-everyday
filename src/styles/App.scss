@@ -1,4 +1,39 @@
 @charset "utf-8";
+
+//Layout
+.header {
+	// height: 8rem;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 100;
+	align-items: center;
+	// display: flex;
+	// flex-direction: column;
+	// background-color: white;
+}
+
+.home {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.footer {
+	// font-size: var(--font-size-xm);
+	position: fixed;
+	bottom: 0;
+	// top: 8rem;
+	left: 0;
+	right: 0;
+	//   height: 12rem;
+	//   text-align: center;
+	//   background-color: black;
+	//   color: white;
+}
+
 // Bulma
 @import "../../node_modules/bulma/sass/utilities/_all.sass";
 @import "../../node_modules/bulma/sass/base/_all.sass";
@@ -8,10 +43,15 @@
 
 @import "./base/base.scss";
 @import "./base/typography.scss";
+@import "./base/icon.scss";
 
-@import "./layout/main.scss";
 @import "./elements/button.scss";
 @import "./elements/box.scss";
 
+@import "./layout/main.scss";
+@import "./layout/header.scss";
 @import "./layout/footer.scss";
+
+@import "./pages/home.scss";
+
 @import "./components/navbar.scss";

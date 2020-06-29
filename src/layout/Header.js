@@ -1,30 +1,37 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Box = ({ type, parameter, handleClick, isDisabled, text, children }) => {
-	const computedClass = `box ${type}`;
+const Header = ({
+	type,
+	parameter,
+	handleClick,
+	isDisabled,
+	text,
+	children,
+}) => {
+	const computedClass = `navbar ${type}`;
 
 	const handleOnClick = () => {
 		handleClick(parameter);
 	};
 
 	return (
-		<div
+		<header
 			disabled={isDisabled}
 			className={computedClass}
 			onClick={handleClick ? handleOnClick : () => {}}
 		>
 			{text}
 			{children}
-		</div>
+		</header>
 	);
 };
 
-Box.propTypes = {
+Header.propTypes = {
 	type: PropTypes.string,
 	text: PropTypes.string.isRequired,
 	handleClick: PropTypes.func,
 	isDisabled: PropTypes.bool,
 };
 
-export default Box;
+export default Header;
