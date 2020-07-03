@@ -9,7 +9,7 @@ const Header = ({
 	text,
 	children,
 }) => {
-	const computedClass = `navbar ${type}`;
+	const computedClass = `header ${type}`;
 
 	const handleOnClick = () => {
 		handleClick(parameter);

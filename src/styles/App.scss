@@ -1,8 +1,12 @@
 @charset "utf-8";
 
 //Layout
+.App {
+	height: 100%;
+}
+
 .header {
-	// height: 8rem;
+	height: 5rem;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -14,21 +18,37 @@
 	// background-color: white;
 }
 
-.home {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+.main {
+	height: 100%;
+	position: relative;
+	top: 5rem;
+	min-height: calc(100vh - 100px);
+
+	// @include tablet {
+	//   padding: 0 10rem;
+	// }
+
+	// @include desktop {
+	//   padding: 0 20rem;
+	// }
 }
+
+// .home {
+// 	display: flex;
+// 	flex-direction: column;
+// 	align-items: center;
+// 	justify-content: center;
+// }
 
 .footer {
 	// font-size: var(--font-size-xm);
 	position: fixed;
 	bottom: 0;
-	// top: 8rem;
+	// top: 5rem;
 	left: 0;
 	right: 0;
-	//   height: 12rem;
+	align-items: center;
+	height: 5rem;
 	//   text-align: center;
 	//   background-color: black;
 	//   color: white;
@@ -37,6 +57,9 @@
 // Bulma
 @import "../../node_modules/bulma/sass/utilities/_all.sass";
 @import "../../node_modules/bulma/sass/base/_all.sass";
+@import "../../node_modules/bulma/sass/elements/container.sass";
+@import "../../node_modules/bulma/sass/form/_all.sass";
+// @import "../../node_modules/bulma/sass/form/select.sass";
 
 @import "./utils/variables.scss";
 @import "./utils/mixins.scss";
@@ -53,5 +76,8 @@
 @import "./layout/footer.scss";
 
 @import "./pages/home.scss";
+@import "./pages/list.scss";
+@import "./pages/quiz.scss";
+@import "./pages/select.scss";
 
 @import "./components/navbar.scss";
