@@ -9,12 +9,15 @@ import Type from "./pages/type";
 import List from "./pages/list";
 import Quiz from "./pages/quiz";
 import Select from "./pages/select";
+import ProgressBar from "./elements/ProgressBar";
 
 function App() {
 	return (
 		<BrowserRouter>
 			<div className="App">
-				<Header />
+				<Header>
+					<ProgressBar type="is-success" />
+				</Header>
 				<div className="main">
 					<Switch>
 						<Route path="/" exact component={Home} />

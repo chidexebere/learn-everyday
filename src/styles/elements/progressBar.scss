@@ -1,0 +1,31 @@
+@import "../../../node_modules/bulma/sass/elements/progress.sass";
+
+#progressBar {
+	// margin: 10px auto;
+	height: 0.5rem;
+	border-radius: 0%;
+	// background-color: #0a5f44;
+}
+
+// .progress {
+// 	&:indeterminate {
+// 		animation-duration: 1s ease-in-out;
+// 		animation-name: moveIndeterminate;
+// 		// animation: progressBar 3s ease-in-out;
+// 	}
+// }
+
+// #progressBar {
+// 	background-color: #e4c465;
+// 	animation: progressBar 3s ease-in-out;
+// 	animation-fill-mode: both;
+// }
+
+// @keyframes moveIndeterminate {
+// 	0% {
+// 		width: 0;
+// 	}
+// 	100% {
+// 		width: 100%;
+// 	}
+// }
