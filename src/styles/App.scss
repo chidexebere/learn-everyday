@@ -6,7 +6,7 @@
 }
 
 .header {
-	height: 5rem;
+	height: 6rem;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -21,8 +21,8 @@
 .main {
 	height: 100%;
 	position: relative;
-	top: 5rem;
-	min-height: calc(100vh - 100px);
+	top: 6rem;
+	min-height: calc(100vh - 110px);
 
 	// @include tablet {
 	//   padding: 0 10rem;
@@ -58,6 +58,7 @@
 @import "../../node_modules/bulma/sass/utilities/_all.sass";
 @import "../../node_modules/bulma/sass/base/_all.sass";
 @import "../../node_modules/bulma/sass/elements/container.sass";
+@import "../../node_modules/bulma/sass/components/message.sass";
 @import "../../node_modules/bulma/sass/form/_all.sass";
 // @import "../../node_modules/bulma/sass/form/select.sass";
 
@@ -66,10 +67,10 @@
 
 @import "./base/base.scss";
 @import "./base/typography.scss";
-@import "./base/icon.scss";
 
 @import "./elements/button.scss";
 @import "./elements/box.scss";
+@import "./elements/icon.scss";
 @import "./elements/progressBar.scss";
 
 @import "./layout/main.scss";

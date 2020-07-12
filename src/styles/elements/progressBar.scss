@@ -7,9 +7,14 @@
 	// background-color: #0a5f44;
 }
 
+.progress:not(:last-child) {
+	margin-bottom: 0.25rem;
+}
+
 // .progress {
+// 	margin: 0;
 // 	&:indeterminate {
-// 		animation-duration: 1s ease-in-out;
+// 		// animation-duration: 1s ease-in-out;
 // 		animation-name: moveIndeterminate;
 // 		// animation: progressBar 3s ease-in-out;
 // 	}

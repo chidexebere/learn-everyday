@@ -1,7 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Button = ({ type, parameter, handleClick, isDisabled, text }) => {
+const Button = ({
+	type,
+	parameter,
+	handleClick,
+	isDisabled,
+	text,
+	children,
+}) => {
 	const computedClass = `button ${type}`;
 
 	const handleOnClick = () => {
@@ -15,6 +22,7 @@ const Button = ({ type, parameter, handleClick, isDisabled, text }) => {
 			onClick={handleClick ? handleOnClick : () => {}}
 		>
 			{text}
+			{children}
 		</button>
 	);
 };

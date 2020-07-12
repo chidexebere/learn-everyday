@@ -1,25 +1,20 @@
 import React from "react";
-import Box from "../elements/Box";
+import Button from "../elements/Button";
+import Icon from "../elements/Icon";
 
 const Type = () => {
 	return (
 		<div className="home">
 			<h2 className="home__title">Select Quiz Type</h2>
-			<Box text="WAEC">
-				<span className="icon">
-					<i className="fa fa-chevron-right"></i>
-				</span>
-			</Box>
-			<Box text="JAMB">
-				<span className="icon">
-					<i className="fa fa-chevron-right"></i>
-				</span>
-			</Box>
-			<Box text="NECO">
-				<span className="icon">
-					<i className="fa fa-chevron-right"></i>
-				</span>
-			</Box>
+			<Button type="buttonTitle" text="WAEC">
+				<Icon fontType="fa fa-chevron-right" />
+			</Button>
+			<Button type="buttonTitle" text="JAMB">
+				<Icon fontType="fa fa-chevron-right" />
+			</Button>
+			<Button type="buttonTitle" text="NECO">
+				<Icon fontType="fa fa-chevron-right" />
+			</Button>
 		</div>
 	);
 };

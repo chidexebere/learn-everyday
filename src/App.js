@@ -10,6 +10,10 @@ import List from "./pages/list";
 import Quiz from "./pages/quiz";
 import Select from "./pages/select";
 import ProgressBar from "./elements/ProgressBar";
+// import Button from "./elements/Button";
+import Box from "./elements/Box";
+import Button from "./elements/Button";
+import Icon from "./elements/Icon";
 
 function App() {
 	return (
@@ -17,6 +21,10 @@ function App() {
 			<div className="App">
 				<Header>
 					<ProgressBar type="is-success" />
+					<div className="header__buttom">
+						<Box type="scoreBoard" text="8/10" />
+						<Icon type="iconButton" fontType="fa fa-pause " />
+					</div>
 				</Header>
 				<div className="main">
 					<Switch>
@@ -29,12 +37,8 @@ function App() {
 				</div>
 
 				<Footer>
-					<span className="icon">
-						<i className="fa fa-home"></i>
-					</span>
-					<span className="icon">
-						<i className="fa fa-arrow-left"></i>
-					</span>
+					<Icon type="iconButton" fontType="fa fa-home" />
+					<Icon type="iconButton" fontType="fa fa-arrow-left" />
 				</Footer>
 			</div>
 		</BrowserRouter>

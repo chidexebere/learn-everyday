@@ -4,14 +4,24 @@ import Button from "../elements/Button";
 const Quiz = () => {
 	return (
 		<div className="home">
-			<div className="quiz container">
+			{/* <div className="quiz container">
 				<div className="notification">What is the capital of Nigeria</div>
-			</div>
-			<div className="buttons">
-				<Button type="is-info" text="A" />
-				<Button type="is-success" text="B" />
-				<Button type="is-warning" text="C" />
-				<Button type="is-danger" text="D" />
+			</div> */}
+
+			<article className="quiz message">
+				<div className="message-header">
+					<p>Question 1</p>
+				</div>
+				<div className="message-body">
+					What is the capital of Nigeria What is the capital of Nigeria What is
+					the capital of Nigeria
+				</div>
+			</article>
+			<div className="buttons answers">
+				<Button type="buttonAnswer is-info " text="A" />
+				<Button type="buttonAnswer is-success" text="B" />
+				<Button type="buttonAnswer is-warning" text="C" />
+				<Button type="buttonAnswer is-danger" text="D" />
 			</div>
 		</div>
 	);
