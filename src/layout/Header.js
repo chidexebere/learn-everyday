@@ -1,27 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Header = ({
-	type,
-	parameter,
-	handleClick,
-	isDisabled,
-	text,
-	children,
-}) => {
+const Header = ({ type, isDisabled, children }) => {
 	const computedClass = `header ${type}`;
 
-	const handleOnClick = () => {
-		handleClick(parameter);
-	};
-
 	return (
-		<header
-			disabled={isDisabled}
-			className={computedClass}
-			onClick={handleClick ? handleOnClick : () => {}}
-		>
-			{text}
+		<header disabled={isDisabled} className={computedClass}>
 			{children}
 		</header>
 	);
@@ -29,8 +13,6 @@ const Header = ({
 
 Header.propTypes = {
 	type: PropTypes.string,
-	text: PropTypes.string.isRequired,
-	handleClick: PropTypes.func,
 	isDisabled: PropTypes.bool,
 };
 

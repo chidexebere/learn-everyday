@@ -1,5 +1,9 @@
 @import "../../../node_modules/bulma/sass/elements/button.sass";
 
+.buttons .button:not(:last-child):not(.is-fullwidth) {
+	margin-right: 0;
+}
+
 .buttonTitle {
 	font-size: 3rem;
 	margin: 2rem 0;
@@ -18,7 +22,19 @@
 }
 
 .buttonAnswer {
-	font-size: 2rem;
-	margin: 2rem 0;
+	font-size: 1.5rem;
+	margin: 1rem 0;
 	text-align: center;
+	white-space: normal;
+	padding: 3rem 2rem;
+	width: 100%;
+
+	@include tablet {
+		font-size: 1.75rem;
+		width: 80%;
+	}
+
+	@include desktop {
+		width: 60%;
+	}
 }

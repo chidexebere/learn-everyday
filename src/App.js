@@ -4,28 +4,21 @@ import "./styles/App.scss";
 import Home from "./pages/home";
 import Footer from "./layout/Footer";
 // import NavBar from "./components/NavBar";
-import Header from "./layout/Header";
+// import Header from "./layout/Header";
 import Type from "./pages/type";
 import List from "./pages/list";
 import Quiz from "./pages/quiz";
 import Select from "./pages/select";
-import ProgressBar from "./elements/ProgressBar";
+// import ProgressBar from "./elements/ProgressBar";
 // import Button from "./elements/Button";
-import Box from "./elements/Box";
-import Button from "./elements/Button";
+// import Box from "./elements/Box";
+// import Button from "./elements/Button";
 import Icon from "./elements/Icon";
 
 function App() {
 	return (
 		<BrowserRouter>
 			<div className="App">
-				<Header>
-					<ProgressBar type="is-success" />
-					<div className="header__buttom">
-						<Box type="scoreBoard" text="8/10" />
-						<Icon type="iconButton" fontType="fa fa-pause " />
-					</div>
-				</Header>
 				<div className="main">
 					<Switch>
 						<Route path="/" exact component={Home} />

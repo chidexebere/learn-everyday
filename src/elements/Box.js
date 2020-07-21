@@ -1,19 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Box = ({ type, parameter, handleClick, isDisabled, text, children }) => {
+const Box = ({ type, isDisabled, text, children }) => {
 	const computedClass = `box ${type}`;
 
-	const handleOnClick = () => {
-		handleClick(parameter);
-	};
-
 	return (
-		<div
-			disabled={isDisabled}
-			className={computedClass}
-			onClick={handleClick ? handleOnClick : () => {}}
-		>
+		<div disabled={isDisabled} className={computedClass}>
 			{text}
 			{children}
 		</div>
@@ -22,8 +14,7 @@ const Box = ({ type, parameter, handleClick, isDisabled, text, children }) => {
 
 Box.propTypes = {
 	type: PropTypes.string,
-	text: PropTypes.string.isRequired,
-	handleClick: PropTypes.func,
+	text: PropTypes.string,
 	isDisabled: PropTypes.bool,
 };
 

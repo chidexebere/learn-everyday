@@ -1,7 +1,11 @@
 @import "../../../node_modules/bulma/sass/elements/box.sass";
 
+.box:not(:last-child) {
+	margin: 0;
+}
+
 .scoreBoard {
-	font-size: 1.7rem;
+	font-size: 1.5rem;
 	background-color: #000;
 	color: #fff;
 	// min-width: 98%;
