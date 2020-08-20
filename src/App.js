@@ -3,22 +3,31 @@ import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 import "./styles/App.scss";
 import Home from "./pages/home";
 import Footer from "./layout/Footer";
-// import NavBar from "./components/NavBar";
-// import Header from "./layout/Header";
 import Type from "./pages/type";
 import List from "./pages/list";
 import Quiz from "./pages/quiz";
 import Select from "./pages/select";
-// import ProgressBar from "./elements/ProgressBar";
-// import Button from "./elements/Button";
-// import Box from "./elements/Box";
-// import Button from "./elements/Button";
 import Icon from "./elements/Icon";
+import Header from "./layout/Header";
+import Logo from "./components/Logo";
 
-function App() {
+function App(props) {
+	console.log(props);
+	// const { location, children } = props;
+	// const quizPath = `/quiz`;
+	// // const blogPath = `/blog`
+	// let header;
+
+	// if (location.pathname === quizPath) {
+	// 	header = <>{children}</>;
+	// } else {
+	// 	header = <Logo />;
+	// }
+
 	return (
 		<BrowserRouter>
 			<div className="App">
+				{/* <Header type="default">{header}</Header> */}
 				<div className="main">
 					<Switch>
 						<Route path="/" exact component={Home} />
