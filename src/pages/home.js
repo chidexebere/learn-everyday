@@ -11,12 +11,14 @@ const Home = (props) => {
 	return (
 		<div className="home">
 			<Header type="default">
-				<Logo />
+				<Link to="/">
+					<Logo />
+				</Link>
 			</Header>
 
 			<h2 className="home__title">Select Quiz</h2>
 			<div className="buttons">
-				<Link to="/list">
+				<Link to="/type">
 					<Button text="Past Questions" type="buttonTitle">
 						<Icon fontType="fa fa-chevron-right" />
 					</Button>

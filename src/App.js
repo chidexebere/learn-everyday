@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import "./styles/App.scss";
 import Home from "./pages/home";
 import Footer from "./layout/Footer";
@@ -8,8 +8,8 @@ import List from "./pages/list";
 import Quiz from "./pages/quiz";
 import Select from "./pages/select";
 import Icon from "./elements/Icon";
-import Header from "./layout/Header";
-import Logo from "./components/Logo";
+// import Header from "./layout/Header";
+// import Logo from "./components/Logo";
 
 function App(props) {
 	console.log(props);
@@ -30,16 +30,30 @@ function App(props) {
 				{/* <Header type="default">{header}</Header> */}
 				<div className="main">
 					<Switch>
-						<Route path="/" exact component={Home} />
-						<Route path="/type" exact component={Type} />
-						<Route path="/list" exact component={List} />
-						<Route path="/quiz" exact component={Quiz} />
-						<Route path="/select" exact component={Select} />
+						{/* <Route path="/" exact component={Home} /> */}
+						<Route path="/" exact>
+							<Home />
+						</Route>
+						<Route path="/type" exact>
+							<Type />
+						</Route>
+						<Route path="/list" exact>
+							<List />
+						</Route>
+						<Route path="/quiz" exact>
+							<Quiz />
+						</Route>
+						<Route path="/select" exact>
+							<Select />
+						</Route>
 					</Switch>
 				</div>
 
 				<Footer>
-					<Icon type="iconButton" fontType="fa fa-home" />
+					<Link to="/">
+						<Icon type="iconButton" fontType="fa fa-home" />
+					</Link>
+					<Icon type="iconButton" fontType="fa fa-arrow-right" />
 					<Icon type="iconButton" fontType="fa fa-arrow-left" />
 				</Footer>
 			</div>
