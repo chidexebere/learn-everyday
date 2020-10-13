@@ -11,8 +11,8 @@ import Icon from "./elements/Icon";
 // import Header from "./layout/Header";
 // import Logo from "./components/Logo";
 
-function App(props) {
-	console.log(props);
+function App() {
+	// console.log(props);
 	// const { location, children } = props;
 	// const quizPath = `/quiz`;
 	// // const blogPath = `/blog`
