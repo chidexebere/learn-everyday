@@ -5,11 +5,12 @@ import Button from '../elements/Button';
 import Icon from '../elements/Icon';
 import Header from '../layout/Header';
 import Logo from '../components/Logo';
+import appData from '../api/data.json';
 
 const Home: React.FC = () => {
   // console.log(props);
   return (
-    <div className="home">
+    <>
       <Header type="default">
         <Link to="/">
           <Logo />
@@ -18,19 +19,15 @@ const Home: React.FC = () => {
 
       <h2 className="home__title">Select Quiz</h2>
       <div className="buttons">
-        <Link to="/type">
-          <Button text="Past Questions" type="buttonTitle">
-            <Icon fontType="fa fa-chevron-right" />
-          </Button>
-        </Link>
-        <Button text="World History" type="buttonTitle">
-          <Icon fontType="fa fa-chevron-right" />
-        </Button>
-        <Button text="Nigerian History" type="buttonTitle">
-          <Icon fontType="fa fa-chevron-right" />
-        </Button>
+        {appData.map((data, index) => (
+          <Link to="/type" key={index}>
+            <Button text={data.title} type="buttonTitle">
+              <Icon fontType="fa fa-chevron-right" />
+            </Button>
+          </Link>
+        ))}
       </div>
-    </div>
+    </>
   );
 };
 

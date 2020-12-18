@@ -1,28 +1,42 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import Button from '../elements/Button';
+import {
+  getQuestionYears,
+  questionYearEnd,
+  questionYearStart,
+} from '../utils/helpers';
 
-const Select = () => {
+type Props = {
+  handleSubjectsPerYear: (e: any) => void;
+  handleSelectedYear: (e: any) => void;
+};
+
+const Select: React.FC<Props> = ({
+  handleSubjectsPerYear,
+  handleSelectedYear,
+}) => {
   const history = useHistory();
-
-  const handleChange = (value: any) => {
-    // history.push(`/?year=${value}`);
-    history.push(`/${value}`);
+  const handleOnClick = (e: any) => {
+    const yearSelected = parseInt(e.target.value);
+    handleSelectedYear(yearSelected);
+    handleSubjectsPerYear(yearSelected);
+    history.push(`/list`);
   };
 
   return (
     <div className="selectYear">
-      <div className="container">
-        <div className="control">
-          <div className="select is-large">
-            <select
-              className="is-focused"
-              onChange={(event) => handleChange(event.target.value)}
-            >
-              <option>Select year</option>
-              <option value="list">2010</option>
-            </select>
-          </div>
-        </div>
+      <div className="buttons">
+        {getQuestionYears(questionYearStart, questionYearEnd).map(
+          (year, index) => (
+            <Button
+              key={index}
+              text={year}
+              handleClick={handleOnClick}
+              value={year}
+            />
+          ),
+        )}
       </div>
     </div>
   );

@@ -1,37 +1,38 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import Button from "../elements/Button";
-import Icon from "../elements/Icon";
+import Button from '../elements/Button';
+import Icon from '../elements/Icon';
 
-const List = () => {
-	return (
-		<div className="list">
-			<h2 className="home__title">Select Question</h2>
-			<div className="buttons">
-				<Link to="/quiz">
-					<Button type="buttonTitle" text="Math">
-						<Icon fontType="fa fa-chevron-right" />
-					</Button>
-				</Link>
-				<Button type="buttonTitle" text="English">
-					<Icon fontType="fa fa-chevron-right" />
-				</Button>
-				<Button type="buttonTitle" text="Biology">
-					<Icon fontType="fa fa-chevron-right" />
-				</Button>
-				<Button type="buttonTitle" text="Math">
-					<Icon fontType="fa fa-chevron-right" />
-				</Button>
-				<Button type="buttonTitle" text="English">
-					<Icon fontType="fa fa-chevron-right" />
-				</Button>
-				<Button type="buttonTitle" text="Biology">
-					<Icon fontType="fa fa-chevron-right" />
-				</Button>
-			</div>
-		</div>
-	);
+type Props = {
+  subjectsPerYear: string[];
+  handleSelectedSubject: (e: any) => void;
+};
+
+const List: React.FC<Props> = ({ subjectsPerYear, handleSelectedSubject }) => {
+  const handleOnClick = (e: any) => {
+    const subjectSelected = e.target.value;
+    handleSelectedSubject(subjectSelected);
+  };
+  return (
+    <div className="list">
+      <h2 className="home__title">Select Question</h2>
+      <div className="buttons">
+        {subjectsPerYear.map((subject, index) => (
+          <Link to="/quiz" key={index}>
+            <Button
+              text={subject}
+              type="buttonTitle"
+              handleClick={handleOnClick}
+              value={subject}
+            >
+              <Icon fontType="fa fa-chevron-right" />
+            </Button>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default List;

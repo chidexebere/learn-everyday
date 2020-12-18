@@ -1,37 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 type Props = {
   /** type of progress bar */
   type?: string;
+  progressCount?: string;
 };
 
-const ProgressBar: React.FC<Props> = ({ type }) => {
+const ProgressBar: React.FC<Props> = ({ type, progressCount }) => {
   const computedClass = `progress ${type}`;
-
-  const [count, setCount] = useState(0);
-  let interval: any = null;
-
-  const startTimer = () => {
-    interval = setInterval(() => {
-      if (count < 100) {
-        const updatedCount = count + 1;
-        setCount(updatedCount);
-      }
-    }, 1000);
-  };
-
-  useEffect(() => {
-    startTimer();
-    return () => {
-      clearInterval(interval);
-    };
-  });
 
   return (
     <progress
       id="progressBar"
       className={computedClass}
-      value={count.toString()}
+      value={progressCount}
       max="100"
     ></progress>
   );

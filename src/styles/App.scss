@@ -2,35 +2,40 @@
 
 //Layout
 .App {
-	height: 100%;
+  height: 100%;
 }
 
+// .App {
+//   display: grid;
+//   grid-template-rows: auto 1fr auto;
+// }
+
 .header {
-	height: 6rem;
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	z-index: 100;
-	align-items: center;
-	// display: flex;
-	// flex-direction: column;
-	// background-color: white;
+  height: 6rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  align-items: center;
+  // display: flex;
+  // flex-direction: column;
+  // background-color: white;
 }
 
 .main {
-	height: 100%;
-	position: relative;
-	top: 6rem;
-	min-height: calc(100vh - 110px);
+  height: 100%;
+  position: relative;
+  top: 6rem;
+  min-height: calc(100vh - 110px);
 
-	// @include tablet {
-	//   padding: 0 10rem;
-	// }
+  // @include tablet {
+  //   padding: 0 10rem;
+  // }
 
-	// @include desktop {
-	//   padding: 0 20rem;
-	// }
+  // @include desktop {
+  //   padding: 0 20rem;
+  // }
 }
 
 // .home {
@@ -41,46 +46,46 @@
 // }
 
 .footer {
-	// font-size: var(--font-size-xm);
-	position: fixed;
-	bottom: 0;
-	// top: 5rem;
-	left: 0;
-	right: 0;
-	align-items: center;
-	height: 4rem;
-	//   text-align: center;
-	//   background-color: black;
-	//   color: white;
+  // font-size: var(--font-size-xm);
+  position: fixed;
+  bottom: 0;
+  // top: 5rem;
+  left: 0;
+  right: 0;
+  align-items: center;
+  height: 4rem;
+  //   text-align: center;
+  //   background-color: black;
+  //   color: white;
 }
 
 // Bulma
-@import "../../node_modules/bulma/sass/utilities/_all.sass";
-@import "../../node_modules/bulma/sass/base/_all.sass";
-@import "../../node_modules/bulma/sass/elements/container.sass";
-@import "../../node_modules/bulma/sass/components/message.sass";
-@import "../../node_modules/bulma/sass/form/_all.sass";
+@import '../../node_modules/bulma/sass/utilities/_all.sass';
+@import '../../node_modules/bulma/sass/base/_all.sass';
+@import '../../node_modules/bulma/sass/elements/container.sass';
+@import '../../node_modules/bulma/sass/components/message.sass';
+@import '../../node_modules/bulma/sass/form/_all.sass';
 // @import "../../node_modules/bulma/sass/form/select.sass";
 
-@import "./utils/variables.scss";
-@import "./utils/mixins.scss";
+@import './utils/variables.scss';
+@import './utils/mixins.scss';
 
-@import "./base/base.scss";
-@import "./base/typography.scss";
+@import './base/base.scss';
+@import './base/typography.scss';
 
-@import "./elements/button.scss";
-@import "./elements/box.scss";
-@import "./elements/icon.scss";
-@import "./elements/progressBar.scss";
+@import './elements/button.scss';
+@import './elements/box.scss';
+@import './elements/icon.scss';
+@import './elements/progressBar.scss';
 
-@import "./layout/main.scss";
-@import "./layout/header.scss";
-@import "./layout/footer.scss";
+@import './layout/main.scss';
+@import './layout/header.scss';
+@import './layout/footer.scss';
 
-@import "./pages/home.scss";
-@import "./pages/list.scss";
-@import "./pages/quiz.scss";
-@import "./pages/select.scss";
+@import './pages/home.scss';
+@import './pages/list.scss';
+@import './pages/quiz.scss';
+@import './pages/select.scss';
 
-@import "./components/navbar.scss";
-@import "./components/logo.scss";
+@import './components/navbar.scss';
+@import './components/logo.scss';

@@ -1,12 +1,13 @@
-@import "../../../node_modules/bulma/sass/layout/footer.sass";
+@import '../../../node_modules/bulma/sass/layout/footer.sass';
 
 .footer {
-	background-color: #ccc;
-	padding: 1rem 1.5rem;
-	display: flex;
-	justify-content: space-between;
+  background-color: #ccc;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  background: var(--color-black);
 
-	// @include tablet {
-	// 	padding: 1rem 10rem;
-	// }
+  // @include tablet {
+  // 	padding: 1rem 10rem;
+  // }
 }

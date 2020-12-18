@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { fetchQuizQuestions } from '../api/fetchData';
 import QuizBox from '../components/QuizBox';
 import Header from '../layout/Header';
 import ProgressBar from '../elements/ProgressBar';
 import Box from '../elements/Box';
 import Icon from '../elements/Icon';
+import { filterAnswer } from '../utils/helpers';
 
 export type AnswerObject = {
   question: string;
@@ -13,7 +14,17 @@ export type AnswerObject = {
   selectedAnswer: string;
 };
 
-const Quiz = () => {
+type Props = {
+  selectedYear: number;
+  questionType: string;
+  selectedSubject: string;
+};
+
+const Quiz: React.FC<Props> = ({
+  selectedYear,
+  questionType,
+  selectedSubject,
+}) => {
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [number, setNumber] = useState(0);
@@ -21,16 +32,30 @@ const Quiz = () => {
   const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
+  const [count, setCount] = useState(0);
 
-  const totalQuestions = 5;
-  const subject = `english`;
-  const year = 2010;
-  const type = `utme`;
+  const totalQuestions = 10;
+  const subject = selectedSubject;
+  const year = selectedYear;
+  const type = questionType;
 
   const { data }: any = questions;
 
+  // For Time for each question
+  let interval: any = null;
+  const startTimer = () => {
+    interval = setInterval(() => {
+      if (count < 100) {
+        const updatedCount = count + 2;
+        setCount(updatedCount);
+      }
+    }, 1000);
+  };
+
+  // Starts the quiz
   const startTrivia = async () => {
     setLoading(true);
+    setCount(0);
     setGameOver(false);
     const newQuestions = await fetchQuizQuestions(
       totalQuestions,
@@ -43,13 +68,6 @@ const Quiz = () => {
     setUserAnswers([]);
     setNumber(0);
     setLoading(false);
-  };
-
-  const filterAnswer = (options: any, answer: any) => {
-    const optionKeys = Object.entries(options).map(([key]) => key);
-    const filteredAnswerIndex = optionKeys.indexOf(answer);
-    const optionValues = Object.entries(options).map(([value]) => value);
-    return optionValues[filteredAnswerIndex];
   };
 
   const checkAnswer = (e: any) => {
@@ -85,10 +103,18 @@ const Quiz = () => {
       setGameOver(true);
     } else {
       setNumber(nextQ);
+      setCount(0);
     }
   };
 
   const scoreBoard = `${score} / ${number + 1}`;
+
+  useEffect(() => {
+    startTimer();
+    return () => {
+      clearInterval(interval);
+    };
+  });
 
   return (
     <div className="home">
@@ -98,12 +124,8 @@ const Quiz = () => {
         </button>
       ) : null}
       {!gameOver ? (
-        // <p className="score">
-        // 	Score: {score} / {number + 1}
-        // </p>
-
         <Header>
-          <ProgressBar type="is-success" />
+          <ProgressBar type="is-success" progressCount={count.toString()} />
           <div className="header__buttom">
             <Box type="scoreBoard" text={scoreBoard} />
             <Icon type="iconButton" fontType="fa fa-pause " />

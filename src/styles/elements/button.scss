@@ -1,40 +1,45 @@
-@import "../../../node_modules/bulma/sass/elements/button.sass";
+@import '../../../node_modules/bulma/sass/elements/button.sass';
 
-.buttons .button:not(:last-child):not(.is-fullwidth) {
-	margin-right: 0;
+// .buttons .button:not(:last-child):not(.is-fullwidth) {
+//   margin-right: 0;
+// }
+
+.button {
+  font-size: 2rem;
 }
 
 .buttonTitle {
-	font-size: 3rem;
-	margin: 2rem 0;
-	text-align: center;
-	background-color: cyan;
-	min-width: 100%;
-	display: flex;
-	justify-content: space-between;
-	border-radius: 6px;
-	box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1),
-		0 0px 0 1px rgba(10, 10, 10, 0.02);
+  font-size: 3rem;
+  margin: 2rem 0;
+  text-align: center;
+  background-color: cyan;
+  min-width: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 6px;
+  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1),
+    0 0px 0 1px rgba(10, 10, 10, 0.02);
 
-	&:hover {
-		border: 4px outset cyan;
-	}
+  &:hover {
+    border: 4px outset cyan;
+  }
 }
 
 .buttonAnswer {
-	font-size: 1.5rem;
-	margin: 1rem 0;
-	text-align: center;
-	white-space: normal;
-	padding: 3rem 2rem;
-	width: 100%;
+  font-size: 1.5rem;
+  margin: 1rem 0;
+  text-align: center;
+  white-space: normal;
+  padding: 3rem 2rem;
+  width: 100%;
 
-	@include tablet {
-		font-size: 1.75rem;
-		width: 80%;
-	}
+  @include tablet {
+    font-size: 1.75rem;
+    width: 80%;
+  }
 
-	@include desktop {
-		width: 60%;
-	}
+  @include desktop {
+    width: 60%;
+  }
 }
