@@ -9,6 +9,7 @@ import Quiz from './pages/quiz';
 import Select from './pages/select';
 import Icon from './elements/Icon';
 import { fetchSubjectsPerYear } from './api/fetchData';
+// import Summary from './pages/summary';
 // import Header from "./layout/Header";
 // import Logo from "./components/Logo";
 

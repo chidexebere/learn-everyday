@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+// import { Link } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import { fetchQuizQuestions } from '../api/fetchData';
 import QuizBox from '../components/QuizBox';
 import Header from '../layout/Header';
@@ -6,6 +8,7 @@ import ProgressBar from '../elements/ProgressBar';
 import Box from '../elements/Box';
 import Icon from '../elements/Icon';
 import { filterAnswer } from '../utils/helpers';
+import Button from '../elements/Button';
 
 export type AnswerObject = {
   question: string;
@@ -34,22 +37,23 @@ const Quiz: React.FC<Props> = ({
   const [gameOver, setGameOver] = useState(true);
   const [count, setCount] = useState(0);
 
-  const totalQuestions = 10;
+  const totalQuestions = 5;
   const subject = selectedSubject;
   const year = selectedYear;
   const type = questionType;
 
   const { data }: any = questions;
+  const nextQ = number + 1;
 
   // For Time for each question
-  let interval: any = null;
   const startTimer = () => {
-    interval = setInterval(() => {
+    const interval = setInterval(() => {
       if (count < 100) {
         const updatedCount = count + 2;
         setCount(updatedCount);
       }
     }, 1000);
+    return interval;
   };
 
   // Starts the quiz
@@ -68,6 +72,18 @@ const Quiz: React.FC<Props> = ({
     setUserAnswers([]);
     setNumber(0);
     setLoading(false);
+  };
+
+  const nextQuestion: any = () => {
+    const nextQuesTimeout = setTimeout(() => {
+      if (nextQ === totalQuestions) {
+        setGameOver(true);
+      } else {
+        setNumber(nextQ);
+        setCount(0);
+      }
+    }, 3000);
+    return nextQuesTimeout;
   };
 
   const checkAnswer = (e: any) => {
@@ -90,69 +106,58 @@ const Quiz: React.FC<Props> = ({
         correctAnswer: filterAnswer(options, answer),
         selectedAnswer: selected,
       };
-      // setUserAnswers((prev) => [...prev, answerObject]);
       setUserAnswers((prev) => [...prev, answerObject]);
-    }
-  };
-
-  const nextQuestion = () => {
-    // Move on to the next question if not the last question
-    const nextQ = number + 1;
-
-    if (nextQ === totalQuestions) {
-      setGameOver(true);
-    } else {
-      setNumber(nextQ);
-      setCount(0);
+      nextQuestion();
     }
   };
 
   const scoreBoard = `${score} / ${number + 1}`;
 
   useEffect(() => {
-    startTimer();
+    const interval = startTimer();
+    const timerId = nextQuestion();
     return () => {
       clearInterval(interval);
+      clearTimeout(timerId);
     };
   });
 
   return (
     <div className="home">
-      {gameOver || userAnswers.length === totalQuestions ? (
-        <button className="start" onClick={startTrivia}>
-          Start
-        </button>
+      {gameOver && userAnswers.length === 0 ? (
+        <Button type="buttonTitle" text="Start" handleClick={startTrivia} />
       ) : null}
-      {!gameOver ? (
-        <Header>
-          <ProgressBar type="is-success" progressCount={count.toString()} />
-          <div className="header__buttom">
-            <Box type="scoreBoard" text={scoreBoard} />
-            <Icon type="iconButton" fontType="fa fa-pause " />
-          </div>
-        </Header>
+
+      {gameOver && totalQuestions === number + 1 ? (
+        <Button
+          type="buttonTitle"
+          text="Play Again"
+          handleClick={startTrivia}
+        />
       ) : null}
+
       {loading ? <p>Loading Questions...</p> : null}
 
       {!loading && !gameOver && (
-        <QuizBox
-          questionAnswered={number + 1}
-          section={data[number].section}
-          question={data[number].question}
-          options={Object.values(data[number].option)}
-          userAnswer={userAnswers ? userAnswers[number] : undefined}
-          checkAnswer={checkAnswer}
-        />
-      )}
+        <>
+          <Header>
+            <ProgressBar type="is-success" progressCount={count.toString()} />
+            <div className="header__buttom">
+              <Box type="scoreBoard" text={scoreBoard} />
+              <Icon type="iconButton" fontType="fa fa-pause " />
+            </div>
+          </Header>
 
-      {!gameOver &&
-      !loading &&
-      userAnswers.length === number + 1 &&
-      number !== totalQuestions - 1 ? (
-        <button className="next" onClick={nextQuestion}>
-          Next Question
-        </button>
-      ) : null}
+          <QuizBox
+            questionAnswered={number + 1}
+            section={data[number].section}
+            question={data[number].question}
+            options={Object.values(data[number].option)}
+            userAnswer={userAnswers ? userAnswers[number] : undefined}
+            checkAnswer={checkAnswer}
+          />
+        </>
+      )}
     </div>
   );
 };
