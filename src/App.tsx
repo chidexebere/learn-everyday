@@ -30,6 +30,7 @@ function App() {
   const [selectedYear, setSelectedYear] = useState(0);
   const [selectedSubject, setSelectedSubject] = useState('');
   const [questionType, setQuestionType] = useState('');
+  const [quizType, setQuizType] = useState([]);
 
   const handleSubjectsPerYear = async (year: number) => {
     const subjectsAndQues = (await fetchSubjectsPerYear(year)).data;
@@ -49,6 +50,10 @@ function App() {
     setQuestionType(type);
   };
 
+  const handleQuizType = (quizType: any) => {
+    setQuizType(quizType);
+  };
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -57,10 +62,13 @@ function App() {
           <Switch>
             {/* <Route path="/" exact component={Home} /> */}
             <Route path="/" exact>
-              <Home />
+              <Home handleQuizType={handleQuizType} />
             </Route>
             <Route path="/type" exact>
-              <Type handleQuestionType={handleQuestionType} />
+              <Type
+                handleQuestionType={handleQuestionType}
+                quizType={quizType}
+              />
             </Route>
             <Route path="/list" exact>
               <List

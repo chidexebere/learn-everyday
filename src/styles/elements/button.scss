@@ -34,12 +34,13 @@
   padding: 3rem 2rem;
   width: 100%;
 
-  @include tablet {
-    font-size: 1.75rem;
-    width: 80%;
+  @include desktop {
+    padding: 4rem 2rem;
+    font-size: 2rem;
+    flex-basis: 45%;
   }
 
-  @include desktop {
-    width: 60%;
-  }
+  // @include desktop {
+  //   width: 60%;
+  // }
 }

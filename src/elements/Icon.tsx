@@ -4,7 +4,7 @@ type Props = {
   /** type of icon*/
   type?: string;
   /** font type of the icon */
-  fontType: string;
+  fontType?: string;
   /** callback function passed to the onClick handler*/
   handleClick?: () => void;
 };

@@ -6,7 +6,7 @@ import QuizBox from '../components/QuizBox';
 import Header from '../layout/Header';
 import ProgressBar from '../elements/ProgressBar';
 import Box from '../elements/Box';
-import Icon from '../elements/Icon';
+// import Icon from '../elements/Icon';
 import { filterAnswer } from '../utils/helpers';
 import Button from '../elements/Button';
 
@@ -36,11 +36,14 @@ const Quiz: React.FC<Props> = ({
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
   const [count, setCount] = useState(0);
+  const [progressBarColor, setProgressBarColor] = useState('is-success');
 
   const totalQuestions = 5;
   const subject = selectedSubject;
   const year = selectedYear;
   const type = questionType;
+
+  // console.log(questionType);
 
   const { data }: any = questions;
   const nextQ = number + 1;
@@ -49,6 +52,12 @@ const Quiz: React.FC<Props> = ({
   const startTimer = () => {
     const interval = setInterval(() => {
       if (count < 100) {
+        if (count > 60) {
+          setProgressBarColor('is-warning');
+        }
+        if (count > 80) {
+          setProgressBarColor('is-danger');
+        }
         const updatedCount = count + 2;
         setCount(updatedCount);
       }
@@ -60,6 +69,7 @@ const Quiz: React.FC<Props> = ({
   const startTrivia = async () => {
     setLoading(true);
     setCount(0);
+    setProgressBarColor('is-success');
     setGameOver(false);
     const newQuestions = await fetchQuizQuestions(
       totalQuestions,
@@ -81,6 +91,7 @@ const Quiz: React.FC<Props> = ({
       } else {
         setNumber(nextQ);
         setCount(0);
+        setProgressBarColor('is-success');
       }
     }, 3000);
     return nextQuesTimeout;
@@ -111,7 +122,9 @@ const Quiz: React.FC<Props> = ({
     }
   };
 
-  const scoreBoard = `${score} / ${number + 1}`;
+  const scoreBoard = `Score : ${score}`;
+  const questionBoard = `${number + 1} / ${totalQuestions}`;
+  const infoBoard = `${type} | ${year} | ${subject}`;
 
   useEffect(() => {
     const interval = startTimer();
@@ -123,17 +136,21 @@ const Quiz: React.FC<Props> = ({
   });
 
   return (
-    <div className="home">
+    <>
       {gameOver && userAnswers.length === 0 ? (
-        <Button type="buttonTitle" text="Start" handleClick={startTrivia} />
+        <div className="section">
+          <Button type="buttonTitle" text="Start" handleClick={startTrivia} />
+        </div>
       ) : null}
 
       {gameOver && totalQuestions === number + 1 ? (
-        <Button
-          type="buttonTitle"
-          text="Play Again"
-          handleClick={startTrivia}
-        />
+        <div className="section">
+          <Button
+            type="buttonTitle"
+            text="Play Again"
+            handleClick={startTrivia}
+          />
+        </div>
       ) : null}
 
       {loading ? <p>Loading Questions...</p> : null}
@@ -141,12 +158,18 @@ const Quiz: React.FC<Props> = ({
       {!loading && !gameOver && (
         <>
           <Header>
-            <ProgressBar type="is-success" progressCount={count.toString()} />
+            <ProgressBar
+              type={progressBarColor}
+              progressCount={count.toString()}
+            />
             <div className="header__buttom">
-              <Box type="scoreBoard" text={scoreBoard} />
-              <Icon type="iconButton" fontType="fa fa-pause " />
+              <Box type="scoreBoard" text={questionBoard} />
+              <p className="subtitle is-3">{scoreBoard}</p>
+              {/* <Icon type="iconButton" fontType="fa fa-pause " /> */}
             </div>
           </Header>
+
+          {/* <Box type="scoreBoard" text={infoBoard} /> */}
 
           <QuizBox
             questionAnswered={number + 1}
@@ -155,10 +178,11 @@ const Quiz: React.FC<Props> = ({
             options={Object.values(data[number].option)}
             userAnswer={userAnswers ? userAnswers[number] : undefined}
             checkAnswer={checkAnswer}
+            info={infoBoard}
           />
         </>
       )}
-    </div>
+    </>
   );
 };
 

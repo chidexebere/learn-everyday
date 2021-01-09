@@ -15,8 +15,8 @@ const List: React.FC<Props> = ({ subjectsPerYear, handleSelectedSubject }) => {
     handleSelectedSubject(subjectSelected);
   };
   return (
-    <div className="list">
-      <h2 className="home__title">Select Question</h2>
+    <div className="section">
+      <h2 className="title">Select Subject</h2>
       <div className="buttons">
         {subjectsPerYear.map((subject, index) => (
           <Link to="/quiz" key={index}>

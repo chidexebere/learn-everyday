@@ -1,9 +1,10 @@
 import React from 'react';
+import Box from '../elements/Box';
 import Button from '../elements/Button';
 
 type Props = {
   /** question number to be answered in the quiz box*/
-  questionAnswered: string | number;
+  questionAnswered?: string | number;
   /** section of question to be answered in the quiz box*/
   section: string;
   /** question to be answered in the quiz box*/
@@ -14,23 +15,25 @@ type Props = {
   userAnswer: any;
   /** callback function passed to the onClick handler*/
   checkAnswer: (e: any) => void;
+  info: any;
 };
 
 const QuizBox: React.FC<Props> = ({
-  questionAnswered,
   section,
   question,
   options,
   userAnswer,
   checkAnswer,
+  info,
 }) => {
   return (
-    <div className="container">
-      <article className="QuizBox message">
-        <p>Question {questionAnswered}</p>
+    <div className="quizbox section">
+      <Box type="scoreBoard" text={info} />
 
+      <article className="quizbox message">
         <div className="message-header">
           <p
+            className="quizbox__text"
             dangerouslySetInnerHTML={{
               __html: section,
             }}
@@ -38,13 +41,14 @@ const QuizBox: React.FC<Props> = ({
         </div>
         <div className="message-body">
           <p
+            className="quizbox__text"
             dangerouslySetInnerHTML={{
               __html: question,
             }}
           />
         </div>
       </article>
-      <div className="buttons answers">
+      <div className="quizbox__answers">
         {options.map((answer) => (
           <Button
             key={answer}

@@ -1,6 +1,66 @@
+// .main {
+//   text-align: center;
+//   font-size: 2rem;
+//   padding: 0 2rem;
+//   background: var(--color-background);
+// }
+
 .main {
-  text-align: center;
-  font-size: 2rem;
-  padding: 0 2rem;
+  // display: grid;
+  // grid-template-rows: auto auto auto;
+  display: flex;
+  flex-direction: column;
+
+  // .buttons {
+  //   gap: 1rem;
+  // }
+}
+
+// Layout
+.App {
+  height: 100%;
+}
+
+.main {
+  // height: 100%;
+  // position: relative;
+  // top: 6rem;
+  min-height: calc(100vh - 110px);
   background: var(--color-background);
+  padding-bottom: 5rem;
+
+  // @include tablet {
+  //   padding: 0 10rem;
+  // }
+
+  // @include desktop {
+  //   padding: 0 20rem;
+  // }
+}
+
+.header {
+  // height: 6rem;
+  // position: fixed;
+  // top: 0;
+  // left: 0;
+  // right: 0;
+  // z-index: 100;
+  align-items: center;
+  // display: flex;
+  // flex-direction: column;
+  // background-color: white;
+}
+
+.footer {
+  // font-size: var(--font-size-xm);
+  position: fixed;
+  bottom: 0;
+  // top: 5rem;
+  left: 0;
+  right: 0;
+  align-items: center;
+  height: 4rem;
+  //   text-align: center;
+  //   background-color: black;
+  //   color: white;
 }

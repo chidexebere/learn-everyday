@@ -25,8 +25,9 @@ const Select: React.FC<Props> = ({
   };
 
   return (
-    <div className="selectYear">
-      <div className="buttons">
+    <div className="section">
+      <h2 className="title">Select Exam Year</h2>
+      <div className="selectYear">
         {getQuestionYears(questionYearStart, questionYearEnd).map(
           (year, index) => (
             <Button

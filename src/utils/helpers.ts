@@ -1,6 +1,6 @@
 export const questionYearStart = 2000;
 
-export const questionYearEnd = 2019;
+export const questionYearEnd = 2016;
 
 export const getQuestionYears = (
   questionYearStart: number,

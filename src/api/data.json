@@ -1,14 +1,26 @@
 [
   {
     "title": "Past Questions",
-    "list": ["utme", "wassce", "neco"]
+    "list": 
+    [
+      {
+        "questionType": "utme",
+        "disabled": false
+      }, 
+      {
+        "questionType": "wassce",
+        "disabled": true
+      },
+      {
+        "questionType": "neco",
+        "disabled": true
+      }
+    ],
+    "disabled": false
   },
   {
     "title": "World History",
-    "list": []
-  },
-  {
-    "title": "Nigeria History",
-    "list": []
+    "list": [],
+    "disabled": true
   }
 ]

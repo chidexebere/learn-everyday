@@ -1,18 +1,19 @@
-@import "../../../node_modules/bulma/sass/components/navbar.sass";
+@import '../../../node_modules/bulma/sass/components/navbar.sass';
 
 .header {
-	background-color: #a7ddca;
-	//display: flex;
-	//flex-direction: column;
+  background-color: #a7ddca;
+  //display: flex;
+  //flex-direction: column;
 
-	&__buttom {
-		display: flex;
-		justify-content: space-between;
-		padding: 0 1rem;
-	}
+  &__buttom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+  }
 }
 
 .default {
-	display: flex;
-	padding-left: 2rem;
+  display: flex;
+  padding: 0.5rem 1rem;
 }

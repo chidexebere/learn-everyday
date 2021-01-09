@@ -1,12 +1,12 @@
-@import "../../../node_modules/bulma/sass/elements/box.sass";
+@import '../../../node_modules/bulma/sass/elements/box.sass';
 
 .box:not(:last-child) {
-	margin: 0;
+  margin-bottom: 0.5rem;
 }
 
 .scoreBoard {
-	font-size: 1.5rem;
-	background-color: #000;
-	color: #fff;
-	// min-width: 98%;
+  font-size: 1.5rem;
+  background-color: #000;
+  color: #fff;
+  // min-width: 98%;
 }

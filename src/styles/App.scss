@@ -1,71 +1,19 @@
 @charset "utf-8";
 
-//Layout
-.App {
-  height: 100%;
-}
+// Set your brand colors
 
-// .App {
-//   display: grid;
-//   grid-template-rows: auto 1fr auto;
-// }
-
-.header {
-  height: 6rem;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  align-items: center;
-  // display: flex;
-  // flex-direction: column;
-  // background-color: white;
-}
-
-.main {
-  height: 100%;
-  position: relative;
-  top: 6rem;
-  min-height: calc(100vh - 110px);
-
-  // @include tablet {
-  //   padding: 0 10rem;
-  // }
-
-  // @include desktop {
-  //   padding: 0 20rem;
-  // }
-}
-
-// .home {
-// 	display: flex;
-// 	flex-direction: column;
-// 	align-items: center;
-// 	justify-content: center;
-// }
-
-.footer {
-  // font-size: var(--font-size-xm);
-  position: fixed;
-  bottom: 0;
-  // top: 5rem;
-  left: 0;
-  right: 0;
-  align-items: center;
-  height: 4rem;
-  //   text-align: center;
-  //   background-color: black;
-  //   color: white;
-}
+$title-color: var(--color-white);
 
 // Bulma
 @import '../../node_modules/bulma/sass/utilities/_all.sass';
 @import '../../node_modules/bulma/sass/base/_all.sass';
 @import '../../node_modules/bulma/sass/elements/container.sass';
+@import '../../node_modules/bulma/sass/elements/title.sass';
+@import '../../node_modules/bulma/sass/elements/tag.sass';
+@import '../../node_modules/bulma/sass/grid/columns.sass';
 @import '../../node_modules/bulma/sass/components/message.sass';
-@import '../../node_modules/bulma/sass/form/_all.sass';
-// @import "../../node_modules/bulma/sass/form/select.sass";
+// @import '../../node_modules/bulma/sass/form/_all.sass';
+@import '../../node_modules/bulma/sass/layout/section.sass';
 
 @import './utils/variables.scss';
 @import './utils/mixins.scss';

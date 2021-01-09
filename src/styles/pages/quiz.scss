@@ -1,10 +1,46 @@
 .quiz {
-	margin: 4rem 0;
-	font-size: 2rem;
-	// padding: 2rem;
-	// border: 1px solid #000;
+  margin: 4rem 0;
+  font-size: 2rem;
+  // padding: 2rem;
+  // border: 1px solid #000;
 }
 
-.answers {
-	justify-content: space-around;
+.quizbox {
+  .scoreBoard {
+    @include desktop {
+      font-size: 2rem;
+    }
+  }
+  .message-header {
+    justify-content: center;
+  }
+  &__text {
+    text-align: center;
+    @include desktop {
+      font-size: 2rem;
+    }
+  }
+
+  &__answers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    @include tablet {
+      margin-top: 5rem;
+    }
+
+    @include desktop {
+      column-gap: 2rem;
+    }
+  }
+
+  // @include tablet {
+  //   width: 80%;
+  // }
+
+  // @include desktop {
+  //   width: 90%;
+  // }
 }

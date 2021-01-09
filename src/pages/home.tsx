@@ -7,8 +7,17 @@ import Header from '../layout/Header';
 import Logo from '../components/Logo';
 import appData from '../api/data.json';
 
-const Home: React.FC = () => {
-  // console.log(props);
+type Props = {
+  handleQuizType: (e: any) => void;
+};
+
+const Home: React.FC<Props> = ({ handleQuizType }) => {
+  const handleOnClick = (e: any) => {
+    const quizType = e.target.value;
+    const eachQuiz = appData.filter((item) => item.title === quizType);
+    handleQuizType(eachQuiz);
+  };
+
   return (
     <>
       <Header type="default">
@@ -17,15 +26,27 @@ const Home: React.FC = () => {
         </Link>
       </Header>
 
-      <h2 className="home__title">Select Quiz</h2>
-      <div className="buttons">
-        {appData.map((data, index) => (
-          <Link to="/type" key={index}>
-            <Button text={data.title} type="buttonTitle">
-              <Icon fontType="fa fa-chevron-right" />
-            </Button>
-          </Link>
-        ))}
+      <div className="section">
+        <h2 className="title">Select Quiz</h2>
+        <div className="buttons">
+          {appData.map((data, index) => (
+            <Link to="/type" key={index}>
+              <Button
+                text={data.title}
+                type="buttonTitle"
+                isDisabled={data.disabled}
+                handleClick={handleOnClick}
+                value={data.title}
+              >
+                {data.disabled === false ? (
+                  <Icon fontType="fa fa-chevron-right" />
+                ) : (
+                  <span className="tag is-medium is-warning">Coming Soon!</span>
+                )}
+              </Button>
+            </Link>
+          ))}
+        </div>
       </div>
     </>
   );
