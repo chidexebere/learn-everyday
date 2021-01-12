@@ -8,7 +8,7 @@ type Props = {
 };
 
 const Footer: React.FC<Props> = ({ type, children }) => {
-  const computedClass = `footer ${type}`;
+  const computedClass = type ? `footer ${type}` : `footer `;
 
   return <footer className={computedClass}>{children}</footer>;
 };

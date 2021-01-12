@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch, Link, useLocation } from 'react-router-dom';
 import './styles/App.scss';
 import Home from './pages/home';
 import Footer from './layout/Footer';
@@ -9,22 +9,51 @@ import Quiz from './pages/quiz';
 import Select from './pages/select';
 import Icon from './elements/Icon';
 import { fetchSubjectsPerYear } from './api/fetchData';
-// import Summary from './pages/summary';
-// import Header from "./layout/Header";
-// import Logo from "./components/Logo";
 
-function App() {
-  // console.log(props);
-  // const { location, children } = props;
-  // const quizPath = `/quiz`;
-  // // const blogPath = `/blog`
-  // let header;
+const App = () => {
+  const location = useLocation();
 
-  // if (location.pathname === quizPath) {
-  // 	header = <>{children}</>;
-  // } else {
-  // 	header = <Logo />;
-  // }
+  const typePath = `/type`;
+  const selectPath = `/select`;
+  const listPath = `/list`;
+  let footer;
+
+  if (location.pathname === typePath) {
+    footer = (
+      <Footer>
+        <Link to="/">
+          <Icon type="iconButton" fontType="fa fa-arrow-left" />
+        </Link>
+        <Link to="/">
+          <Icon type="iconButton" fontType="fa fa-home" />
+        </Link>
+      </Footer>
+    );
+  } else if (location.pathname === selectPath) {
+    footer = (
+      <Footer>
+        <Link to="/type">
+          <Icon type="iconButton" fontType="fa fa-arrow-left" />
+        </Link>
+        <Link to="/">
+          <Icon type="iconButton" fontType="fa fa-home" />
+        </Link>
+      </Footer>
+    );
+  } else if (location.pathname === listPath) {
+    footer = (
+      <Footer>
+        <Link to="/select">
+          <Icon type="iconButton" fontType="fa fa-arrow-left" />
+        </Link>
+        <Link to="/">
+          <Icon type="iconButton" fontType="fa fa-home" />
+        </Link>
+      </Footer>
+    );
+  } else {
+    footer = <Footer />;
+  }
 
   const [subjectsPerYear, setSubjectsPerYear] = useState([]);
   const [selectedYear, setSelectedYear] = useState(0);
@@ -55,53 +84,39 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
-      <div className="App">
-        {/* <Header type="default">{header}</Header> */}
-        <div className="main">
-          <Switch>
-            {/* <Route path="/" exact component={Home} /> */}
-            <Route path="/" exact>
-              <Home handleQuizType={handleQuizType} />
-            </Route>
-            <Route path="/type" exact>
-              <Type
-                handleQuestionType={handleQuestionType}
-                quizType={quizType}
-              />
-            </Route>
-            <Route path="/list" exact>
-              <List
-                subjectsPerYear={subjectsPerYear}
-                handleSelectedSubject={handleSelectedSubject}
-              />
-            </Route>
-            <Route path="/quiz" exact>
-              <Quiz
-                selectedYear={selectedYear}
-                questionType={questionType}
-                selectedSubject={selectedSubject}
-              />
-            </Route>
-            <Route path="/select" exact>
-              <Select
-                handleSubjectsPerYear={handleSubjectsPerYear}
-                handleSelectedYear={handleSelectedYear}
-              />
-            </Route>
-          </Switch>
-        </div>
-
-        <Footer>
-          <Link to="/">
-            <Icon type="iconButton" fontType="fa fa-home" />
-          </Link>
-          <Icon type="iconButton" fontType="fa fa-arrow-right" />
-          <Icon type="iconButton" fontType="fa fa-arrow-left" />
-        </Footer>
+    <div className="App">
+      <div className="main">
+        <Switch>
+          <Route path="/" exact>
+            <Home handleQuizType={handleQuizType} />
+          </Route>
+          <Route path="/type" exact>
+            <Type handleQuestionType={handleQuestionType} quizType={quizType} />
+          </Route>
+          <Route path="/list" exact>
+            <List
+              subjectsPerYear={subjectsPerYear}
+              handleSelectedSubject={handleSelectedSubject}
+            />
+          </Route>
+          <Route path="/quiz" exact>
+            <Quiz
+              selectedYear={selectedYear}
+              questionType={questionType}
+              selectedSubject={selectedSubject}
+            />
+          </Route>
+          <Route path="/select" exact>
+            <Select
+              handleSubjectsPerYear={handleSubjectsPerYear}
+              handleSelectedYear={handleSelectedYear}
+            />
+          </Route>
+        </Switch>
       </div>
-    </BrowserRouter>
+      <>{footer}</>
+    </div>
   );
-}
+};
 
 export default App;
