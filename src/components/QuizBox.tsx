@@ -49,9 +49,9 @@ const QuizBox: React.FC<Props> = ({
         </div>
       </article>
       <div className="quizbox__answers">
-        {options.map((answer) => (
+        {options.map((answer, index) => (
           <Button
-            key={answer}
+            key={index}
             type={`buttonAnswer`}
             text={answer}
             isDisabled={userAnswer ? true : false}

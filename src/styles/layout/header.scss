@@ -2,14 +2,25 @@
 
 .header {
   background-color: #a7ddca;
-  //display: flex;
-  //flex-direction: column;
+
+  a {
+    width: auto;
+  }
 
   &__buttom {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 1rem;
+  }
+
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    p {
+      margin-left: 2rem;
+    }
   }
 }
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // import { useHistory } from 'react-router-dom';
 import { fetchQuizQuestions } from '../api/fetchData';
 import QuizBox from '../components/QuizBox';
@@ -7,8 +7,9 @@ import Header from '../layout/Header';
 import ProgressBar from '../elements/ProgressBar';
 import Box from '../elements/Box';
 // import Icon from '../elements/Icon';
-import { filterAnswer } from '../utils/helpers';
+import { filterAnswer, getSelectedOption } from '../utils/helpers';
 import Button from '../elements/Button';
+import Icon from '../elements/Icon';
 
 export type AnswerObject = {
   question: string;
@@ -105,7 +106,7 @@ const Quiz: React.FC<Props> = ({
 
       // Check answer against correct answer
       const options = data[number].option;
-      const isCorrect = selected === filterAnswer(options, answer);
+      const isCorrect = answer === getSelectedOption(options, selected);
 
       // Add score if answer is isCorrect
       if (isCorrect) setScore((prev) => prev + 1);
@@ -125,8 +126,11 @@ const Quiz: React.FC<Props> = ({
   const scoreBoard = `Score : ${score}`;
   const questionBoard = `${number + 1} / ${totalQuestions}`;
   const infoBoard = `${type} | ${year} | ${subject}`;
+  const scoreSummary = `You got ${score} out of ${totalQuestions}`;
 
   useEffect(() => {
+    // startTrivia();
+    // fetchQuizQuestions(totalQuestions, subject, year, type);
     const interval = startTimer();
     const timerId = nextQuestion();
     return () => {
@@ -140,16 +144,29 @@ const Quiz: React.FC<Props> = ({
       {gameOver && userAnswers.length === 0 ? (
         <div className="section">
           <Button type="buttonTitle" text="Start" handleClick={startTrivia} />
+          <Link to="/list">
+            <Button
+              type="buttonTitle  is-inverted is-outlined"
+              text="Go Back"
+            />
+          </Link>
         </div>
       ) : null}
 
       {gameOver && totalQuestions === number + 1 ? (
         <div className="section">
+          <Box type="scoreSummary" text={scoreSummary} />
           <Button
             type="buttonTitle"
             text="Play Again"
             handleClick={startTrivia}
           />
+          <Link to="/">
+            <Button
+              type="buttonTitle  is-inverted is-outlined"
+              text="Go to New Quiz"
+            />
+          </Link>
         </div>
       ) : null}
 
@@ -163,9 +180,13 @@ const Quiz: React.FC<Props> = ({
               progressCount={count.toString()}
             />
             <div className="header__buttom">
-              <Box type="scoreBoard" text={questionBoard} />
-              <p className="subtitle is-3">{scoreBoard}</p>
-              {/* <Icon type="iconButton" fontType="fa fa-pause " /> */}
+              <div className="header__info">
+                <Box type="scoreBoard" text={questionBoard} />
+                <p className="subtitle is-3">{scoreBoard}</p>
+              </div>
+              <Link to="/list">
+                <Icon type="iconButton" fontType="fa fa-stop-circle" />
+              </Link>
             </div>
           </Header>
 

@@ -8,7 +8,7 @@ type Props = {
 };
 
 const Header: React.FC<Props> = ({ type, children }) => {
-  const computedClass = `header ${type}`;
+  const computedClass = type ? `header ${type}` : `header`;
 
   return <header className={computedClass}>{children}</header>;
 };

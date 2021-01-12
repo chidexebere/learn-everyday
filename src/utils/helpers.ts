@@ -31,3 +31,10 @@ export const filterAnswer = (options: Options, answer: string) => {
   const optionValues = Object.values(options);
   return optionValues[filteredAnswerIndex];
 };
+
+export const getSelectedOption = (options: Options, selected: string) => {
+  const optionValues = Object.values(options);
+  const optionKeys = Object.keys(options);
+  const selectedAnswerIndex = optionValues.indexOf(selected);
+  return optionKeys[selectedAnswerIndex];
+};
