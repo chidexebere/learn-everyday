@@ -1,9 +1,5 @@
 @import '../../../node_modules/bulma/sass/elements/button.sass';
 
-// .buttons .button:not(:last-child):not(.is-fullwidth) {
-//   margin-right: 0;
-// }
-
 .button {
   font-size: 2rem;
 }
@@ -12,18 +8,10 @@
   font-size: 3rem;
   margin: 2rem 0;
   text-align: center;
-  background-color: cyan;
-  min-width: 100%;
   width: 100%;
   display: flex;
   justify-content: space-between;
   border-radius: 6px;
-  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1),
-    0 0px 0 1px rgba(10, 10, 10, 0.02);
-
-  &:hover {
-    border: 4px outset cyan;
-  }
 }
 
 .buttonAnswer {
@@ -39,8 +27,4 @@
     font-size: 2rem;
     flex-basis: 45%;
   }
-
-  // @include desktop {
-  //   width: 60%;
-  // }
 }

@@ -1,7 +1,7 @@
 @import '../../../node_modules/bulma/sass/components/navbar.sass';
 
 .header {
-  background-color: #a7ddca;
+  background-color: var(--color-header-background);
 
   a {
     width: auto;

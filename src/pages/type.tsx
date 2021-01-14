@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 import Button from '../elements/Button';
 import Icon from '../elements/Icon';
-// import appData from '../api/data.json';
 
 type Props = {
   handleQuestionType: (e: any) => void;

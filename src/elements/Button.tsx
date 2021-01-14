@@ -35,12 +35,13 @@ const Button: React.FC<Props> = ({
     ? `is-danger`
     : `is-info`;
 
-  const computedClass = `button ${type} ${customColor} `;
+  const computedClass = type ? `button ${type}` : `button`;
+  const buttonClass = `${computedClass} ${customColor}`;
 
   return (
     <button
       disabled={isDisabled}
-      className={computedClass}
+      className={buttonClass}
       value={value}
       onClick={handleClick}
     >

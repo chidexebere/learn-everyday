@@ -10,7 +10,7 @@ type Props = {
 };
 
 const Icon: React.FC<Props> = ({ type, fontType, handleClick }) => {
-  const computedClass = `icon ${type}`;
+  const computedClass = type ? `icon ${type}` : `icon `;
   const fontClass = `${fontType}`;
 
   return (

@@ -1,18 +1,14 @@
 @charset "utf-8";
 
-// Set your brand colors
-
+// Element colors
 $title-color: var(--color-white);
 
 // Bulma
 @import '../../node_modules/bulma/sass/utilities/_all.sass';
 @import '../../node_modules/bulma/sass/base/_all.sass';
-@import '../../node_modules/bulma/sass/elements/container.sass';
 @import '../../node_modules/bulma/sass/elements/title.sass';
 @import '../../node_modules/bulma/sass/elements/tag.sass';
-@import '../../node_modules/bulma/sass/grid/columns.sass';
 @import '../../node_modules/bulma/sass/components/message.sass';
-// @import '../../node_modules/bulma/sass/form/_all.sass';
 @import '../../node_modules/bulma/sass/layout/section.sass';
 
 @import './utils/variables.scss';
@@ -26,14 +22,11 @@ $title-color: var(--color-white);
 @import './elements/icon.scss';
 @import './elements/progressBar.scss';
 
-@import './layout/main.scss';
+@import './layout/layout.scss';
 @import './layout/header.scss';
 @import './layout/footer.scss';
 
-@import './pages/home.scss';
-@import './pages/list.scss';
 @import './pages/quiz.scss';
 @import './pages/select.scss';
 
-@import './components/navbar.scss';
 @import './components/logo.scss';

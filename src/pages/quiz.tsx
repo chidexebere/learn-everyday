@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-// import { useHistory } from 'react-router-dom';
 import { fetchQuizQuestions } from '../api/fetchData';
 import QuizBox from '../components/QuizBox';
 import Header from '../layout/Header';
 import ProgressBar from '../elements/ProgressBar';
 import Box from '../elements/Box';
-// import Icon from '../elements/Icon';
 import { filterAnswer, getSelectedOption } from '../utils/helpers';
 import Button from '../elements/Button';
 import Icon from '../elements/Icon';
 
 export type AnswerObject = {
   question: string;
-  isCorrect: boolean;
+  isCorrect?: boolean;
   correctAnswer: string;
-  selectedAnswer: string;
+  selectedAnswer?: string;
 };
 
 type Props = {
@@ -32,7 +30,6 @@ const Quiz: React.FC<Props> = ({
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [number, setNumber] = useState(0);
-  // const [userAnswers, setUserAnswers] = useState([]);
   const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
@@ -44,27 +41,9 @@ const Quiz: React.FC<Props> = ({
   const year = selectedYear;
   const type = questionType;
 
-  // console.log(questionType);
-
   const { data }: any = questions;
   const nextQ = number + 1;
-
-  // For Time for each question
-  const startTimer = () => {
-    const interval = setInterval(() => {
-      if (count < 100) {
-        if (count > 60) {
-          setProgressBarColor('is-warning');
-        }
-        if (count > 80) {
-          setProgressBarColor('is-danger');
-        }
-        const updatedCount = count + 2;
-        setCount(updatedCount);
-      }
-    }, 1000);
-    return interval;
-  };
+  let answerObject: any;
 
   // Starts the quiz
   const startTrivia = async () => {
@@ -85,11 +64,29 @@ const Quiz: React.FC<Props> = ({
     setLoading(false);
   };
 
+  // For Time for each question
+  const startTimer = () => {
+    const interval = setInterval(() => {
+      if (count < 100) {
+        if (count > 60) {
+          setProgressBarColor('is-warning');
+        }
+        if (count > 80) {
+          setProgressBarColor('is-danger');
+        }
+        const updatedCount = count + 2;
+        setCount(updatedCount);
+      }
+    }, 1000);
+    return interval;
+  };
+
   const nextQuestion: any = () => {
     const nextQuesTimeout = setTimeout(() => {
       if (nextQ === totalQuestions) {
         setGameOver(true);
       } else {
+        if (count === 100) checkAnswerWithNoSelection();
         setNumber(nextQ);
         setCount(0);
         setProgressBarColor('is-success');
@@ -98,7 +95,7 @@ const Quiz: React.FC<Props> = ({
     return nextQuesTimeout;
   };
 
-  const checkAnswer = (e: any) => {
+  const checkAnswerAfterSelection = (e: any) => {
     if (!gameOver) {
       // User's answer
       const selected = e.currentTarget.value;
@@ -112,14 +109,28 @@ const Quiz: React.FC<Props> = ({
       if (isCorrect) setScore((prev) => prev + 1);
 
       // Save the answer in the array for user answers
-      const answerObject = {
+      const selectedObject = {
         question: data[number].question,
         isCorrect,
         correctAnswer: filterAnswer(options, answer),
         selectedAnswer: selected,
       };
+      answerObject = selectedObject;
       setUserAnswers((prev) => [...prev, answerObject]);
       nextQuestion();
+    }
+  };
+
+  const checkAnswerWithNoSelection = () => {
+    if (!gameOver) {
+      const answer = data[number].answer;
+      const options = data[number].option;
+      const unselectedObject = {
+        question: data[number].question,
+        correctAnswer: filterAnswer(options, answer),
+      };
+      answerObject = unselectedObject;
+      setUserAnswers((prev) => [...prev, answerObject]);
     }
   };
 
@@ -129,10 +140,15 @@ const Quiz: React.FC<Props> = ({
   const scoreSummary = `You got ${score} out of ${totalQuestions}`;
 
   useEffect(() => {
-    // startTrivia();
-    // fetchQuizQuestions(totalQuestions, subject, year, type);
-    const interval = startTimer();
-    const timerId = nextQuestion();
+    let interval: any;
+    let timerId: any;
+    if (!gameOver) {
+      interval = startTimer();
+      timerId = nextQuestion();
+    } else {
+      clearInterval(interval);
+      clearTimeout(timerId);
+    }
     return () => {
       clearInterval(interval);
       clearTimeout(timerId);
@@ -145,10 +161,7 @@ const Quiz: React.FC<Props> = ({
         <div className="section">
           <Button type="buttonTitle" text="Start" handleClick={startTrivia} />
           <Link to="/list">
-            <Button
-              type="buttonTitle  is-inverted is-outlined"
-              text="Go Back"
-            />
+            <Button type="buttonTitle is-inverted is-outlined" text="Go Back" />
           </Link>
         </div>
       ) : null}
@@ -163,14 +176,18 @@ const Quiz: React.FC<Props> = ({
           />
           <Link to="/">
             <Button
-              type="buttonTitle  is-inverted is-outlined"
+              type="buttonTitle is-inverted is-outlined"
               text="Go to New Quiz"
             />
           </Link>
         </div>
       ) : null}
 
-      {loading ? <p>Loading Questions...</p> : null}
+      {loading ? (
+        <div className="section">
+          <p className="title">Loading Questions...</p>
+        </div>
+      ) : null}
 
       {!loading && !gameOver && (
         <>
@@ -190,15 +207,13 @@ const Quiz: React.FC<Props> = ({
             </div>
           </Header>
 
-          {/* <Box type="scoreBoard" text={infoBoard} /> */}
-
           <QuizBox
             questionAnswered={number + 1}
             section={data[number].section}
             question={data[number].question}
             options={Object.values(data[number].option)}
-            userAnswer={userAnswers ? userAnswers[number] : undefined}
-            checkAnswer={checkAnswer}
+            userAnswer={userAnswers[number]}
+            checkAnswer={checkAnswerAfterSelection}
             info={infoBoard}
           />
         </>

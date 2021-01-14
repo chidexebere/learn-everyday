@@ -60,9 +60,12 @@ const App = () => {
   const [selectedSubject, setSelectedSubject] = useState('');
   const [questionType, setQuestionType] = useState('');
   const [quizType, setQuizType] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleSubjectsPerYear = async (year: number) => {
+    setLoading(true);
     const subjectsAndQues = (await fetchSubjectsPerYear(year)).data;
+    setLoading(false);
     const subjects = subjectsAndQues.map((item: any) => item.subject);
     setSubjectsPerYear(subjects);
   };
@@ -97,6 +100,7 @@ const App = () => {
             <List
               subjectsPerYear={subjectsPerYear}
               handleSelectedSubject={handleSelectedSubject}
+              isLoading={loading}
             />
           </Route>
           <Route path="/quiz" exact>

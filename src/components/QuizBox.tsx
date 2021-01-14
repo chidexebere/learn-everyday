@@ -58,7 +58,9 @@ const QuizBox: React.FC<Props> = ({
             value={answer}
             handleClick={checkAnswer}
             correct={userAnswer?.correctAnswer === answer}
-            userClicked={userAnswer?.selectedAnswer === answer}
+            userClicked={
+              userAnswer ? userAnswer.selectedAnswer === answer : undefined
+            }
           />
         ))}
       </div>
