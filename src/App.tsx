@@ -61,13 +61,21 @@ const App = () => {
   const [questionType, setQuestionType] = useState('');
   const [quizType, setQuizType] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const handleSubjectsPerYear = async (year: number) => {
+    let subjectsAndQues;
+    let subjects;
+    setIsError(false);
     setLoading(true);
-    const subjectsAndQues = (await fetchSubjectsPerYear(year)).data;
+    try {
+      subjectsAndQues = (await fetchSubjectsPerYear(year)).data;
+      subjects = subjectsAndQues.map((item: any) => item.subject);
+      setSubjectsPerYear(subjects);
+    } catch (error) {
+      setIsError(true);
+    }
     setLoading(false);
-    const subjects = subjectsAndQues.map((item: any) => item.subject);
-    setSubjectsPerYear(subjects);
   };
 
   const handleSelectedYear = (year: number) => {
@@ -101,6 +109,7 @@ const App = () => {
               subjectsPerYear={subjectsPerYear}
               handleSelectedSubject={handleSelectedSubject}
               isLoading={loading}
+              isError={isError}
             />
           </Route>
           <Route path="/quiz" exact>

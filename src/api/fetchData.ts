@@ -25,21 +25,13 @@ export const fetchQuizQuestions = async (
   year: number,
   type: string,
 ) => {
-  try {
-    const endpoint = `https://questions.aloc.ng/api/q/${totalQuestions}?subject=${subject}&year=${year}&type=${type}`;
-    const data = await (await fetch(endpoint)).json();
-    return data;
-  } catch (error) {
-    alert(error); // catches both errors
-  }
+  const endpoint = `https://questions.aloc.ng/api/q/${totalQuestions}?subject=${subject}&year=${year}&type=${type}`;
+  const data = await (await fetch(endpoint)).json();
+  return data;
 };
 
 export const fetchSubjectsPerYear = async (year: number) => {
-  try {
-    const endpoint = `https://questions.aloc.ng/api/metrics/subjects-available-for/${year}`;
-    const data = await (await fetch(endpoint)).json();
-    return data;
-  } catch (error) {
-    alert(error); // catches both errors
-  }
+  const endpoint = `https://questions.aloc.ng/api/metrics/subjects-available-for/${year}`;
+  const data = await (await fetch(endpoint)).json();
+  return data;
 };

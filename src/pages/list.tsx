@@ -8,12 +8,14 @@ type Props = {
   subjectsPerYear: string[];
   handleSelectedSubject: (e: any) => void;
   isLoading: boolean;
+  isError: boolean;
 };
 
 const List: React.FC<Props> = ({
   subjectsPerYear,
   handleSelectedSubject,
   isLoading,
+  isError,
 }) => {
   const handleOnClick = (e: any) => {
     const subjectSelected = e.target.value;
@@ -21,11 +23,13 @@ const List: React.FC<Props> = ({
   };
   return (
     <>
-      {isLoading ? (
+      {isLoading && (
         <div className="section">
           <p className="title">Loading Subjects...</p>
         </div>
-      ) : (
+      )}
+
+      {!isLoading && !isError && (
         <div className="section">
           <h2 className="title">Select Subject</h2>
           <div className="buttons">
@@ -42,6 +46,14 @@ const List: React.FC<Props> = ({
               </Link>
             ))}
           </div>
+        </div>
+      )}
+
+      {isError && (
+        <div className="section">
+          <p className="title">
+            Something went wrong, Please check your internet connection...
+          </p>
         </div>
       )}
     </>

@@ -35,6 +35,7 @@ const Quiz: React.FC<Props> = ({
   const [gameOver, setGameOver] = useState(true);
   const [count, setCount] = useState(0);
   const [progressBarColor, setProgressBarColor] = useState('is-success');
+  const [isError, setIsError] = useState(false);
 
   const totalQuestions = 5;
   const subject = selectedSubject;
@@ -47,17 +48,23 @@ const Quiz: React.FC<Props> = ({
 
   // Starts the quiz
   const startTrivia = async () => {
+    let newQuestions;
+    setIsError(false);
     setLoading(true);
     setCount(0);
     setProgressBarColor('is-success');
     setGameOver(false);
-    const newQuestions = await fetchQuizQuestions(
-      totalQuestions,
-      subject,
-      year,
-      type,
-    );
-    setQuestions(newQuestions);
+    try {
+      newQuestions = await fetchQuizQuestions(
+        totalQuestions,
+        subject,
+        year,
+        type,
+      );
+      setQuestions(newQuestions);
+    } catch (error) {
+      setIsError(true);
+    }
     setScore(0);
     setUserAnswers([]);
     setNumber(0);
@@ -157,16 +164,16 @@ const Quiz: React.FC<Props> = ({
 
   return (
     <>
-      {gameOver && userAnswers.length === 0 ? (
+      {gameOver && userAnswers.length === 0 && (
         <div className="section">
           <Button type="buttonTitle" text="Start" handleClick={startTrivia} />
           <Link to="/list">
             <Button type="buttonTitle is-inverted is-outlined" text="Go Back" />
           </Link>
         </div>
-      ) : null}
+      )}
 
-      {gameOver && totalQuestions === number + 1 ? (
+      {gameOver && totalQuestions === number + 1 && (
         <div className="section">
           <Box type="scoreSummary" text={scoreSummary} />
           <Button
@@ -181,15 +188,23 @@ const Quiz: React.FC<Props> = ({
             />
           </Link>
         </div>
-      ) : null}
+      )}
 
-      {loading ? (
+      {loading && (
         <div className="section">
           <p className="title">Loading Questions...</p>
         </div>
-      ) : null}
+      )}
 
-      {!loading && !gameOver && (
+      {isError && (
+        <div className="section">
+          <p className="title">
+            Something went wrong, Please check your internet connection
+          </p>
+        </div>
+      )}
+
+      {!loading && !gameOver && !isError && (
         <>
           <Header>
             <ProgressBar
