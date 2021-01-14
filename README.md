@@ -1,4 +1,4 @@
-## A quiz app
+## Learn Everyday
 
 A quiz app built with React and TypeScript.
 
