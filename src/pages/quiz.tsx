@@ -8,6 +8,7 @@ import Box from '../elements/Box';
 import { filterAnswer, getSelectedOption } from '../utils/helpers';
 import Button from '../elements/Button';
 import Icon from '../elements/Icon';
+import Modal from '../components/Modal';
 
 export type AnswerObject = {
   question: string;
@@ -36,6 +37,7 @@ const Quiz: React.FC<Props> = ({
   const [count, setCount] = useState(0);
   const [progressBarColor, setProgressBarColor] = useState('is-success');
   const [isError, setIsError] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const totalQuestions = 5;
   const subject = selectedSubject;
@@ -45,6 +47,11 @@ const Quiz: React.FC<Props> = ({
   const { data }: any = questions;
   const nextQ = number + 1;
   let answerObject: any;
+
+  // For Modal
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
 
   // Starts the quiz
   const startTrivia = async () => {
@@ -216,9 +223,11 @@ const Quiz: React.FC<Props> = ({
                 <Box type="scoreBoard" text={questionBoard} />
                 <p className="subtitle is-3">{scoreBoard}</p>
               </div>
-              <Link to="/list">
-                <Icon type="iconButton" fontType="fa fa-stop-circle" />
-              </Link>
+              <Icon
+                type="iconButton has-text-black"
+                fontType="fa fa-stop-circle"
+                handleClick={toggleModal}
+              />
             </div>
           </Header>
 
@@ -233,6 +242,30 @@ const Quiz: React.FC<Props> = ({
           />
         </>
       )}
+
+      <Modal isOpen={showModal}>
+        <div className="modal-background"></div>
+        <div className="modal-card">
+          <header className="modal-card-head">
+            <p className="modal-card-title">Do you want to end this quiz?</p>
+            <Icon
+              type="iconButton has-text-danger"
+              fontType="fa fa-window-close"
+              handleClick={toggleModal}
+            />
+          </header>
+          <footer className="modal-card-foot">
+            <Link to="/list">
+              <Button type="is-success is-outlined" text="Yes" />
+            </Link>
+            <Button
+              type="is-dark is-outlined"
+              text="No"
+              handleClick={toggleModal}
+            />
+          </footer>
+        </div>
+      </Modal>
     </>
   );
 };

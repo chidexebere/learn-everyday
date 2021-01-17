@@ -6,9 +6,11 @@ $title-color: var(--color-white);
 // Bulma
 @import '../../node_modules/bulma/sass/utilities/_all.sass';
 @import '../../node_modules/bulma/sass/base/_all.sass';
+@import '../../node_modules/bulma/sass/helpers/color.sass';
 @import '../../node_modules/bulma/sass/elements/title.sass';
 @import '../../node_modules/bulma/sass/elements/tag.sass';
 @import '../../node_modules/bulma/sass/components/message.sass';
+@import '../../node_modules/bulma/sass/components/modal.sass';
 @import '../../node_modules/bulma/sass/layout/section.sass';
 
 @import './utils/variables.scss';
@@ -30,3 +32,4 @@ $title-color: var(--color-white);
 @import './pages/select.scss';
 
 @import './components/logo.scss';
+@import './components/modal.scss';

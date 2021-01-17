@@ -1,0 +1,18 @@
+.modal {
+  &-card {
+    width: 90%;
+    @include tablet {
+      width: 60%;
+    }
+
+    @include desktop {
+      width: 50%;
+    }
+    &-title {
+      font-weight: bold;
+      @include tablet {
+        font-size: 2rem;
+      }
+    }
+  }
+}
