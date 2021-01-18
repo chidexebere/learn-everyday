@@ -249,7 +249,7 @@ const Quiz: React.FC<Props> = ({
           <header className="modal-card-head">
             <p className="modal-card-title">Do you want to end this quiz?</p>
             <Icon
-              type="iconButton has-text-danger"
+              type="iconButton has-text-black"
               fontType="fa fa-window-close"
               handleClick={toggleModal}
             />
@@ -258,11 +258,7 @@ const Quiz: React.FC<Props> = ({
             <Link to="/list">
               <Button type="is-success is-outlined" text="Yes" />
             </Link>
-            <Button
-              type="is-dark is-outlined"
-              text="No"
-              handleClick={toggleModal}
-            />
+            <Button type="is-warning" text="No" handleClick={toggleModal} />
           </footer>
         </div>
       </Modal>
