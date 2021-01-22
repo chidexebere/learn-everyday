@@ -7,8 +7,8 @@ export const getQuestionYears = (
   questionYearEnd: number,
 ) => {
   let years: number[] = [];
-  let startYear = questionYearStart;
-  let endYear = questionYearEnd;
+  const startYear = questionYearStart;
+  const endYear = questionYearEnd;
   years.push(startYear);
   let lastItem = startYear;
   while (lastItem < endYear) {
