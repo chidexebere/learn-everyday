@@ -175,7 +175,10 @@ const Quiz: React.FC<Props> = ({
         <div className="section">
           <Button type="buttonTitle" text="Start" handleClick={startTrivia} />
           <Link to="/list">
-            <Button type="buttonTitle is-inverted is-outlined" text="Go Back" />
+            <Button
+              type="buttonTitle is-inverted is-outlined"
+              text="Back to Subjects"
+            />
           </Link>
         </div>
       )}
@@ -199,7 +202,7 @@ const Quiz: React.FC<Props> = ({
 
       {loading && (
         <div className="section">
-          <p className="title">Loading Questions...</p>
+          <p className="title">Loading {totalQuestions} questions...</p>
         </div>
       )}
 

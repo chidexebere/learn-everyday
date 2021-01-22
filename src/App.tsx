@@ -108,6 +108,7 @@ const App = () => {
             <List
               subjectsPerYear={subjectsPerYear}
               handleSelectedSubject={handleSelectedSubject}
+              selectedYear={selectedYear}
               isLoading={loading}
               isError={isError}
             />

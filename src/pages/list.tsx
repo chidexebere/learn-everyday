@@ -6,6 +6,7 @@ import Icon from '../elements/Icon';
 
 type Props = {
   subjectsPerYear: string[];
+  selectedYear: number;
   handleSelectedSubject: (e: any) => void;
   isLoading: boolean;
   isError: boolean;
@@ -13,6 +14,7 @@ type Props = {
 
 const List: React.FC<Props> = ({
   subjectsPerYear,
+  selectedYear,
   handleSelectedSubject,
   isLoading,
   isError,
@@ -25,7 +27,7 @@ const List: React.FC<Props> = ({
     <>
       {isLoading && (
         <div className="section">
-          <p className="title">Loading Subjects...</p>
+          <p className="title">Loading subjects for {selectedYear} ...</p>
         </div>
       )}
 
