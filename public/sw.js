@@ -23,12 +23,19 @@ self.addEventListener('fetch', (event) => {
       (cacheResponse) =>
         cacheResponse ||
         fetch(event.request)
-          .then((networkResponse) =>
+          .then((networkResponse) => {
+            if (
+              !networkResponse ||
+              networkResponse.status !== 200 ||
+              networkResponse.type !== 'basic'
+            ) {
+              return networkResponse;
+            }
             caches.open(CACHE_NAME).then((cache) => {
               cache.put(event.request, networkResponse.clone());
               return networkResponse;
-            }),
-          )
+            });
+          })
           .catch(() => caches.match('offline.html')),
     ),
   );
