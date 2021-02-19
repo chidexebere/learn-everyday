@@ -18,12 +18,12 @@ export const getQuestionYears = (
   return years;
 };
 
-interface Options {
+type Options = {
   a: string;
   b: string;
   c: string;
   d: string;
-}
+};
 
 export const filterAnswer = (options: Options, answer: string) => {
   const optionKeys = Object.keys(options);

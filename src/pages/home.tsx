@@ -7,11 +7,11 @@ import Header from '../layout/Header';
 import Logo from '../components/Logo';
 import appData from '../api/data.json';
 
-type Props = {
+interface HomeProps {
   handleQuizType: (e: any) => void;
-};
+}
 
-const Home: React.FC<Props> = ({ handleQuizType }) => {
+const Home: React.FC<HomeProps> = ({ handleQuizType }) => {
   const handleOnClick = (e: any) => {
     const quizType = e.target.value;
     const eachQuiz = appData.filter((item) => item.title === quizType);

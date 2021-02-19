@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 import Button from '../elements/Button';
 import Icon from '../elements/Icon';
 
-type Props = {
+interface TypeProps {
   handleQuestionType: (e: any) => void;
   quizType: any;
-};
+}
 
-const Type: React.FC<Props> = ({ handleQuestionType, quizType }) => {
+const Type: React.FC<TypeProps> = ({ handleQuestionType, quizType }) => {
   const typeList = quizType[0].list;
   const handleOnClick = (e: any) => {
     const questionType = e.target.value;

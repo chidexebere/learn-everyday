@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom';
 import Button from '../elements/Button';
 import Icon from '../elements/Icon';
 
-type Props = {
+interface ListProps {
   subjectsPerYear: string[];
   selectedYear: number;
   handleSelectedSubject: (e: any) => void;
   isLoading: boolean;
   isError: boolean;
-};
+}
 
-const List: React.FC<Props> = ({
+const List: React.FC<ListProps> = ({
   subjectsPerYear,
   selectedYear,
   handleSelectedSubject,

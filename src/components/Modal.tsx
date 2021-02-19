@@ -1,6 +1,6 @@
 import React from 'react';
 
-type Props = {
+interface ModalProps {
   /** type of modal */
   type?: string;
   /** text content of the modal */
@@ -8,9 +8,9 @@ type Props = {
   /** standard children prop: accepts any valid React Node */
   children: React.ReactNode;
   isOpen: boolean;
-};
+}
 
-const Modal: React.FC<Props> = ({ type, text, children, isOpen }) => {
+const Modal: React.FC<ModalProps> = ({ type, text, children, isOpen }) => {
   const activeClass = isOpen ? 'is-active' : '';
   const computedClass = type ? `modal ${type}` : `modal`;
   const modalClass = `${computedClass} ${activeClass}`;

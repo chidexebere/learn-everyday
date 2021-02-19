@@ -2,7 +2,7 @@ import React from 'react';
 import Box from '../elements/Box';
 import Button from '../elements/Button';
 
-type Props = {
+interface QuizBoxProps {
   /** question number to be answered in the quiz box*/
   questionAnswered?: string | number;
   /** section of question to be answered in the quiz box*/
@@ -16,9 +16,9 @@ type Props = {
   /** callback function passed to the onClick handler*/
   checkAnswer: (e: any) => void;
   info: any;
-};
+}
 
-const QuizBox: React.FC<Props> = ({
+const QuizBox: React.FC<QuizBoxProps> = ({
   section,
   question,
   options,

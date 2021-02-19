@@ -7,12 +7,12 @@ import {
   questionYearStart,
 } from '../utils/helpers';
 
-type Props = {
+interface SelectProps {
   handleSubjectsPerYear: (e: any) => void;
   handleSelectedYear: (e: any) => void;
-};
+}
 
-const Select: React.FC<Props> = ({
+const Select: React.FC<SelectProps> = ({
   handleSubjectsPerYear,
   handleSelectedYear,
 }) => {

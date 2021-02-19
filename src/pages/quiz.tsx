@@ -17,13 +17,13 @@ export type AnswerObject = {
   selectedAnswer?: string;
 };
 
-type Props = {
+interface QuizProps {
   selectedYear: number;
   questionType: string;
   selectedSubject: string;
-};
+}
 
-const Quiz: React.FC<Props> = ({
+const Quiz: React.FC<QuizProps> = ({
   selectedYear,
   questionType,
   selectedSubject,

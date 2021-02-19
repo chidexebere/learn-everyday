@@ -1,12 +1,12 @@
 import React from 'react';
 
-type Props = {
+interface ProgressBarProps {
   /** type of progress bar */
   type?: string;
   progressCount?: string;
-};
+}
 
-const ProgressBar: React.FC<Props> = ({ type, progressCount }) => {
+const ProgressBar: React.FC<ProgressBarProps> = ({ type, progressCount }) => {
   const computedClass = `progress ${type}`;
 
   return (

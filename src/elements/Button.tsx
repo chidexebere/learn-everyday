@@ -1,6 +1,6 @@
 import React from 'react';
 
-type Props = {
+interface ButtonProps {
   /** type of button*/
   type?: string;
   /** text content of the button */
@@ -17,9 +17,9 @@ type Props = {
   userClicked?: boolean;
   /** standard children prop: accepts any valid React Node */
   children?: React.ReactNode;
-};
+}
 
-const Button: React.FC<Props> = ({
+const Button: React.FC<ButtonProps> = ({
   type,
   handleClick,
   isDisabled,
