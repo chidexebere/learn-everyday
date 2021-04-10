@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 
 import Button from '../elements/Button';
@@ -8,19 +8,18 @@ import Logo from '../components/Logo';
 import appData from '../api/data.json';
 
 interface HomeProps {
-  handleQuizType: (e: any) => void;
+  handleQuizType: (quizType: string) => void;
 }
 
-const Home: React.FC<HomeProps> = ({ handleQuizType }) => {
-  const handleOnClick = (e: any) => {
-    const quizType = e.target.value;
-    const eachQuiz = appData.filter((item) => item.title === quizType);
-    handleQuizType(eachQuiz);
+const Home: FC<HomeProps> = ({ handleQuizType }) => {
+  const handleOnClick = (e: MouseEvent) => {
+    const { value } = e.target as HTMLButtonElement;
+    handleQuizType(value);
   };
 
   return (
     <>
-      <Header type="default">
+      <Header variant="default">
         <Link to="/">
           <Logo />
         </Link>
@@ -33,7 +32,7 @@ const Home: React.FC<HomeProps> = ({ handleQuizType }) => {
             <Link to="/type" key={index}>
               <Button
                 text={data.title}
-                type="buttonTitle"
+                variant="buttonTitle"
                 isDisabled={data.disabled}
                 handleClick={handleOnClick}
                 value={data.title}

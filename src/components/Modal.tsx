@@ -2,7 +2,7 @@ import React from 'react';
 
 interface ModalProps {
   /** type of modal */
-  type?: string;
+  variant?: string;
   /** text content of the modal */
   text?: string | number;
   /** standard children prop: accepts any valid React Node */
@@ -10,9 +10,9 @@ interface ModalProps {
   isOpen: boolean;
 }
 
-const Modal: React.FC<ModalProps> = ({ type, text, children, isOpen }) => {
+const Modal: React.FC<ModalProps> = ({ variant, text, children, isOpen }) => {
   const activeClass = isOpen ? 'is-active' : '';
-  const computedClass = type ? `modal ${type}` : `modal`;
+  const computedClass = variant ? `modal ${variant}` : `modal`;
   const modalClass = `${computedClass} ${activeClass}`;
 
   return (

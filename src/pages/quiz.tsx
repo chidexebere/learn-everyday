@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, MouseEvent, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchQuizQuestions } from '../api/fetchData';
 import QuizBox from '../components/QuizBox';
@@ -6,16 +6,10 @@ import Header from '../layout/Header';
 import ProgressBar from '../elements/ProgressBar';
 import Box from '../elements/Box';
 import { filterAnswer, getSelectedOption } from '../utils/helpers';
+import { AnswerObject, QuestionsObject } from '../utils/types';
 import Button from '../elements/Button';
 import Icon from '../elements/Icon';
 import Modal from '../components/Modal';
-
-export type AnswerObject = {
-  question: string;
-  isCorrect?: boolean;
-  correctAnswer: string;
-  selectedAnswer?: string;
-};
 
 interface QuizProps {
   selectedYear: number;
@@ -23,13 +17,34 @@ interface QuizProps {
   selectedSubject: string;
 }
 
-const Quiz: React.FC<QuizProps> = ({
+const Quiz: FC<QuizProps> = ({
   selectedYear,
   questionType,
   selectedSubject,
 }) => {
   const [loading, setLoading] = useState(false);
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState<QuestionsObject>({
+    subject: '',
+    status: 0,
+    data: [
+      {
+        id: 0,
+        question: '',
+        option: {
+          a: '',
+          b: '',
+          c: '',
+          d: '',
+        },
+        section: '',
+        image: '',
+        answer: '',
+        solution: '',
+        examtype: '',
+        examyear: '',
+      },
+    ],
+  });
   const [number, setNumber] = useState(0);
   const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([]);
   const [score, setScore] = useState(0);
@@ -44,9 +59,9 @@ const Quiz: React.FC<QuizProps> = ({
   const year = selectedYear;
   const type = questionType;
 
-  const { data }: any = questions;
+  const { data } = questions;
   const nextQ = number + 1;
-  let answerObject: any;
+  let answerObject: AnswerObject;
 
   // For Modal
   const toggleModal = () => {
@@ -80,7 +95,7 @@ const Quiz: React.FC<QuizProps> = ({
 
   // For Time for each question
   const startTimer = () => {
-    const interval = setInterval(() => {
+    const interval: number = window.setInterval(() => {
       if (count < 100) {
         if (count > 60) {
           setProgressBarColor('is-warning');
@@ -95,8 +110,8 @@ const Quiz: React.FC<QuizProps> = ({
     return interval;
   };
 
-  const nextQuestion: any = () => {
-    const nextQuesTimeout = setTimeout(() => {
+  const nextQuestion = () => {
+    const nextQuesTimeout: number = window.setTimeout(() => {
       if (nextQ === totalQuestions) {
         setGameOver(true);
       } else {
@@ -109,10 +124,11 @@ const Quiz: React.FC<QuizProps> = ({
     return nextQuesTimeout;
   };
 
-  const checkAnswerAfterSelection = (e: any) => {
+  const checkAnswerAfterSelection = (e: MouseEvent) => {
     if (!gameOver) {
       // User's answer
-      const selected = e.currentTarget.value;
+      const { value } = e.target as HTMLButtonElement;
+      const selected = value;
       const answer = data[number].answer;
 
       // Check answer against correct answer
@@ -150,12 +166,12 @@ const Quiz: React.FC<QuizProps> = ({
 
   const scoreBoard = `Score : ${score}`;
   const questionBoard = `${number + 1} / ${totalQuestions}`;
-  const infoBoard = `${type} | ${year} | ${subject}`;
+  const infoBox = `${type} | ${year} | ${subject}`;
   const scoreSummary = `You got ${score} out of ${totalQuestions}`;
 
   useEffect(() => {
-    let interval: any;
-    let timerId: any;
+    let interval: number = 0;
+    let timerId: number = 0;
     if (!gameOver) {
       interval = startTimer();
       timerId = nextQuestion();
@@ -173,10 +189,14 @@ const Quiz: React.FC<QuizProps> = ({
     <>
       {gameOver && userAnswers.length === 0 && (
         <div className="section">
-          <Button type="buttonTitle" text="Start" handleClick={startTrivia} />
+          <Button
+            variant="buttonTitle"
+            text="Start"
+            handleClick={startTrivia}
+          />
           <Link to="/list">
             <Button
-              type="buttonTitle is-inverted is-outlined"
+              variant="buttonTitle is-inverted is-outlined"
               text="Back to Subjects"
             />
           </Link>
@@ -185,15 +205,15 @@ const Quiz: React.FC<QuizProps> = ({
 
       {gameOver && totalQuestions === number + 1 && (
         <div className="section">
-          <Box type="scoreSummary" text={scoreSummary} />
+          <Box variant="scoreSummary" text={scoreSummary} />
           <Button
-            type="buttonTitle"
+            variant="buttonTitle"
             text="Play Again"
             handleClick={startTrivia}
           />
           <Link to="/">
             <Button
-              type="buttonTitle is-inverted is-outlined"
+              variant="buttonTitle is-inverted is-outlined"
               text="Go to New Quiz"
             />
           </Link>
@@ -218,16 +238,16 @@ const Quiz: React.FC<QuizProps> = ({
         <>
           <Header>
             <ProgressBar
-              type={progressBarColor}
+              variant={progressBarColor}
               progressCount={count.toString()}
             />
             <div className="header__buttom">
               <div className="header__info">
-                <Box type="scoreBoard" text={questionBoard} />
+                <Box variant="scoreBoard" text={questionBoard} />
                 <p className="subtitle is-3">{scoreBoard}</p>
               </div>
               <Icon
-                type="iconButton has-text-black"
+                variant="iconButton has-text-black"
                 fontType="fa fa-stop-circle"
                 handleClick={toggleModal}
               />
@@ -241,7 +261,7 @@ const Quiz: React.FC<QuizProps> = ({
             options={Object.values(data[number].option)}
             userAnswer={userAnswers[number]}
             checkAnswer={checkAnswerAfterSelection}
-            info={infoBoard}
+            infoBox={infoBox}
           />
         </>
       )}
@@ -252,16 +272,16 @@ const Quiz: React.FC<QuizProps> = ({
           <header className="modal-card-head">
             <p className="modal-card-title">Do you want to end this quiz?</p>
             <Icon
-              type="iconButton has-text-black"
+              variant="iconButton has-text-black"
               fontType="fa fa-window-close"
               handleClick={toggleModal}
             />
           </header>
           <footer className="modal-card-foot">
             <Link to="/list">
-              <Button type="is-success is-outlined" text="Yes" />
+              <Button variant="is-success is-outlined" text="Yes" />
             </Link>
-            <Button type="is-warning" text="No" handleClick={toggleModal} />
+            <Button variant="is-warning" text="No" handleClick={toggleModal} />
           </footer>
         </div>
       </Modal>

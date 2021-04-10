@@ -1,24 +1,3 @@
-export type QuestionsState = {
-  subject: string;
-  status: number;
-  data: {
-    id: number;
-    question: string;
-    option: {
-      a: string;
-      b: string;
-      c: string;
-      d: string;
-    };
-    section: string;
-    image: string;
-    answer: string;
-    solution: string;
-    examtype: string;
-    examyear: string;
-  };
-};
-
 export const fetchQuizQuestions = async (
   totalQuestions: number,
   subject: string,

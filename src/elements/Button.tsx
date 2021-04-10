@@ -1,26 +1,26 @@
-import React from 'react';
+import React, { FC, ComponentProps } from 'react';
 
-interface ButtonProps {
+interface ButtonProps extends ComponentProps<'button'> {
   /** type of button*/
-  type?: string;
+  variant?: string;
   /** text content of the button */
   text: string | number;
   /** callback function passed to the onClick handler*/
-  handleClick?: (e: any) => void;
+  handleClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   /** checks if button is enabled or disabled */
   isDisabled?: boolean;
   /** value of the button */
-  value?: any;
+  value?: string | number;
   /** correct of the button */
-  correct?: any;
+  correct?: boolean;
   /** checks if user clicks the button */
   userClicked?: boolean;
   /** standard children prop: accepts any valid React Node */
   children?: React.ReactNode;
 }
 
-const Button: React.FC<ButtonProps> = ({
-  type,
+const Button: FC<ButtonProps> = ({
+  variant,
   handleClick,
   isDisabled,
   value,
@@ -35,7 +35,7 @@ const Button: React.FC<ButtonProps> = ({
     ? `is-danger`
     : `is-info`;
 
-  const computedClass = type ? `button ${type}` : `button`;
+  const computedClass = variant ? `button ${variant}` : `button`;
   const buttonClass = `${computedClass} ${customColor}`;
 
   return (

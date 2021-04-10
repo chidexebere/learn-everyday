@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 
 import Button from '../elements/Button';
@@ -7,21 +7,21 @@ import Icon from '../elements/Icon';
 interface ListProps {
   subjectsPerYear: string[];
   selectedYear: number;
-  handleSelectedSubject: (e: any) => void;
+  handleSelectedSubject: (selectedSubject: string) => void;
   isLoading: boolean;
   isError: boolean;
 }
 
-const List: React.FC<ListProps> = ({
+const List: FC<ListProps> = ({
   subjectsPerYear,
   selectedYear,
   handleSelectedSubject,
   isLoading,
   isError,
 }) => {
-  const handleOnClick = (e: any) => {
-    const subjectSelected = e.target.value;
-    handleSelectedSubject(subjectSelected);
+  const handleOnClick = (e: MouseEvent) => {
+    const { value } = e.target as HTMLButtonElement;
+    handleSelectedSubject(value);
   };
   return (
     <>
@@ -39,7 +39,7 @@ const List: React.FC<ListProps> = ({
               <Link to="/quiz" key={index}>
                 <Button
                   text={subject}
-                  type="buttonTitle"
+                  variant="buttonTitle"
                   handleClick={handleOnClick}
                   value={subject}
                 >

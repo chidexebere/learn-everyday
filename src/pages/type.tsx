@@ -1,28 +1,30 @@
-import React from 'react';
+import React, { FC, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 
 import Button from '../elements/Button';
 import Icon from '../elements/Icon';
+import appData from '../api/data.json';
 
 interface TypeProps {
-  handleQuestionType: (e: any) => void;
-  quizType: any;
+  handleQuestionType: (type: string) => void;
+  quizType: string;
 }
 
-const Type: React.FC<TypeProps> = ({ handleQuestionType, quizType }) => {
-  const typeList = quizType[0].list;
-  const handleOnClick = (e: any) => {
-    const questionType = e.target.value;
-    handleQuestionType(questionType);
+const Type: FC<TypeProps> = ({ handleQuestionType, quizType }) => {
+  const eachQuiz = appData.filter((item) => item.title === quizType);
+  const typeList = eachQuiz[0].list;
+  const handleOnClick = (e: MouseEvent) => {
+    const { value } = e.target as HTMLButtonElement;
+    handleQuestionType(value);
   };
   return (
     <div className="section">
       <h2 className="title">Select Question Type</h2>
       <div className="buttons">
-        {typeList.map((data: any, index: any) => (
+        {typeList.map((data, index) => (
           <Link to="/select" key={index}>
             <Button
-              type="buttonTitle"
+              variant="buttonTitle"
               text={data.questionType}
               isDisabled={data.disabled}
               handleClick={handleOnClick}

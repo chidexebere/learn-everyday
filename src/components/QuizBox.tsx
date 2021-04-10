@@ -1,6 +1,7 @@
 import React from 'react';
 import Box from '../elements/Box';
 import Button from '../elements/Button';
+import { AnswerObject } from '../utils/types';
 
 interface QuizBoxProps {
   /** question number to be answered in the quiz box*/
@@ -12,10 +13,11 @@ interface QuizBoxProps {
   /** options  for question to be answered in the quiz box*/
   options: string[];
   /** user answer*/
-  userAnswer: any;
+  userAnswer: AnswerObject;
   /** callback function passed to the onClick handler*/
-  checkAnswer: (e: any) => void;
-  info: any;
+  checkAnswer: (event: React.MouseEvent<HTMLElement>) => void;
+  /** Selected question information*/
+  infoBox: string;
 }
 
 const QuizBox: React.FC<QuizBoxProps> = ({
@@ -24,11 +26,11 @@ const QuizBox: React.FC<QuizBoxProps> = ({
   options,
   userAnswer,
   checkAnswer,
-  info,
+  infoBox,
 }) => {
   return (
     <div className="quizbox section">
-      <Box type="scoreBoard" text={info} />
+      <Box variant="scoreBoard" text={infoBox} />
 
       <article className="quizbox message">
         <div className="message-header">
@@ -52,7 +54,7 @@ const QuizBox: React.FC<QuizBoxProps> = ({
         {options.map((answer, index) => (
           <Button
             key={index}
-            type={`buttonAnswer`}
+            variant={`buttonAnswer`}
             text={answer}
             isDisabled={userAnswer ? true : false}
             value={answer}

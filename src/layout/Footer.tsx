@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { FC, ComponentProps } from 'react';
 
-interface FooterProps {
+interface FooterProps extends ComponentProps<'footer'> {
   /** type of footer */
-  type?: string;
+  variant?: string;
   /** standard children prop: accepts any valid React Node */
   children?: React.ReactNode;
 }
 
-const Footer: React.FC<FooterProps> = ({ type, children }) => {
-  const computedClass = type ? `footer ${type}` : `footer `;
+const Footer: FC<FooterProps> = ({ variant, children }) => {
+  const computedClass = variant ? `footer ${variant}` : `footer `;
 
   return <footer className={computedClass}>{children}</footer>;
 };

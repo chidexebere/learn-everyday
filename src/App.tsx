@@ -9,6 +9,7 @@ import Quiz from './pages/quiz';
 import Select from './pages/select';
 import Icon from './elements/Icon';
 import { fetchSubjectsPerYear } from './api/fetchData';
+import { SubjectsAndQues } from './utils/types';
 
 const App = () => {
   const location = useLocation();
@@ -22,10 +23,10 @@ const App = () => {
     footer = (
       <Footer>
         <Link to="/">
-          <Icon type="iconButton" fontType="fa fa-arrow-left" />
+          <Icon variant="iconButton" fontType="fa fa-arrow-left" />
         </Link>
         <Link to="/">
-          <Icon type="iconButton" fontType="fa fa-home" />
+          <Icon variant="iconButton" fontType="fa fa-home" />
         </Link>
       </Footer>
     );
@@ -33,10 +34,10 @@ const App = () => {
     footer = (
       <Footer>
         <Link to="/type">
-          <Icon type="iconButton" fontType="fa fa-arrow-left" />
+          <Icon variant="iconButton" fontType="fa fa-arrow-left" />
         </Link>
         <Link to="/">
-          <Icon type="iconButton" fontType="fa fa-home" />
+          <Icon variant="iconButton" fontType="fa fa-home" />
         </Link>
       </Footer>
     );
@@ -44,10 +45,10 @@ const App = () => {
     footer = (
       <Footer>
         <Link to="/select">
-          <Icon type="iconButton" fontType="fa fa-arrow-left" />
+          <Icon variant="iconButton" fontType="fa fa-arrow-left" />
         </Link>
         <Link to="/">
-          <Icon type="iconButton" fontType="fa fa-home" />
+          <Icon variant="iconButton" fontType="fa fa-home" />
         </Link>
       </Footer>
     );
@@ -59,7 +60,7 @@ const App = () => {
   const [selectedYear, setSelectedYear] = useState(0);
   const [selectedSubject, setSelectedSubject] = useState('');
   const [questionType, setQuestionType] = useState('');
-  const [quizType, setQuizType] = useState([]);
+  const [quizType, setQuizType] = useState('');
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -70,7 +71,7 @@ const App = () => {
     setLoading(true);
     try {
       subjectsAndQues = (await fetchSubjectsPerYear(year)).data;
-      subjects = subjectsAndQues.map((item: any) => item.subject);
+      subjects = subjectsAndQues.map((item: SubjectsAndQues) => item.subject);
       setSubjectsPerYear(subjects);
     } catch (error) {
       setIsError(true);
@@ -90,7 +91,7 @@ const App = () => {
     setQuestionType(type);
   };
 
-  const handleQuizType = (quizType: any) => {
+  const handleQuizType = (quizType: string) => {
     setQuizType(quizType);
   };
 

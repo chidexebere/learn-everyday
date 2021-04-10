@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, MouseEvent } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '../elements/Button';
 import {
@@ -8,17 +8,18 @@ import {
 } from '../utils/helpers';
 
 interface SelectProps {
-  handleSubjectsPerYear: (e: any) => void;
-  handleSelectedYear: (e: any) => void;
+  handleSubjectsPerYear: (year: number) => void;
+  handleSelectedYear: (year: number) => void;
 }
 
-const Select: React.FC<SelectProps> = ({
+const Select: FC<SelectProps> = ({
   handleSubjectsPerYear,
   handleSelectedYear,
 }) => {
   const history = useHistory();
-  const handleOnClick = (e: any) => {
-    const yearSelected = parseInt(e.target.value);
+  const handleOnClick = (e: MouseEvent) => {
+    const { value } = e.target as HTMLButtonElement;
+    const yearSelected = parseInt(value);
     handleSelectedYear(yearSelected);
     handleSubjectsPerYear(yearSelected);
     history.push(`/list`);

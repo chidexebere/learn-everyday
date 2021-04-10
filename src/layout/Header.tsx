@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { FC, ComponentProps } from 'react';
 
-interface HeaderProps {
+interface HeaderProps extends ComponentProps<'header'> {
   /** type of header */
-  type?: string;
+  variant?: string;
   /** standard children prop: accepts any valid React Node */
   children?: React.ReactNode;
 }
 
-const Header: React.FC<HeaderProps> = ({ type, children }) => {
-  const computedClass = type ? `header ${type}` : `header`;
+const Header: FC<HeaderProps> = ({ variant, children }) => {
+  const computedClass = variant ? `header ${variant}` : `header`;
 
   return <header className={computedClass}>{children}</header>;
 };

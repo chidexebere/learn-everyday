@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { FC, ComponentProps } from 'react';
 
-interface ProgressBarProps {
+interface ProgressBarProps extends ComponentProps<'progress'> {
   /** type of progress bar */
-  type?: string;
+  variant?: string;
   progressCount?: string;
 }
 
-const ProgressBar: React.FC<ProgressBarProps> = ({ type, progressCount }) => {
-  const computedClass = `progress ${type}`;
+const ProgressBar: FC<ProgressBarProps> = ({ variant, progressCount }) => {
+  const computedClass = `progress ${variant}`;
 
   return (
     <progress
