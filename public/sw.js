@@ -1,19 +1,39 @@
-const CACHE_NAME = 'version-1';
-const urlsToCache = ['/', '/index.html', '/offline.html'];
+const CACHE_VERSION = 'version-1.00';
+const filesToCache = ['/', '/index.html', '/offline.html'];
 
 const self = this;
 
 // Install SW
 self.addEventListener('install', (event) => {
-  self.skipWaiting();
+  // self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
+    caches.open(CACHE_VERSION).then((cache) => {
       console.log('Cache opened');
-      return cache.addAll(urlsToCache).catch((error) => {
+      return cache.addAll(filesToCache).catch((error) => {
         console.log(`Cache open failed: ${error}`);
       });
     }),
   );
+  self.skipWaiting();
+});
+
+// Activate the SW
+self.addEventListener('activate', (event) => {
+  const cacheWhitelist = [];
+  cacheWhitelist.push(CACHE_VERSION);
+
+  event.waitUntil(
+    caches.keys().then((cacheNames) =>
+      Promise.all(
+        cacheNames.map((cacheName) => {
+          if (!cacheWhitelist.includes(cacheName)) {
+            return caches.delete(cacheName);
+          }
+        }),
+      ),
+    ),
+  );
+  clients.claim();
 });
 
 // Intercept requests
@@ -31,30 +51,12 @@ self.addEventListener('fetch', (event) => {
             ) {
               return networkResponse;
             }
-            caches.open(CACHE_NAME).then((cache) => {
+            caches.open(CACHE_VERSION).then((cache) => {
               cache.put(event.request, networkResponse.clone());
               return networkResponse;
             });
           })
           .catch(() => caches.match('offline.html')),
-    ),
-  );
-});
-
-// Activate the SW
-self.addEventListener('activate', (event) => {
-  const cacheWhitelist = [];
-  cacheWhitelist.push(CACHE_NAME);
-
-  event.waitUntil(
-    caches.keys().then((cacheNames) =>
-      Promise.all(
-        cacheNames.map((cacheName) => {
-          if (!cacheWhitelist.includes(cacheName)) {
-            return caches.delete(cacheName);
-          }
-        }),
-      ),
     ),
   );
 });
