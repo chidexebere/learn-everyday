@@ -1,6 +1,7 @@
 {
   "short_name": "Learn Everyday",
   "name": "Learn Everyday",
+  "lang": "en-US",
   "description": "A quiz app for A-level examinations",
   "icons": [
     {
@@ -17,16 +18,29 @@
       "src": "icons/icon-192.png",
       "type": "image/png",
       "sizes": "192x192",
-      "purpose": "any maskable"
+      "purpose": "maskable"
     },
     {
       "src": "icons/icon-512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "maskable"
     }
   ],
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#a7ddca",
-  "background_color": "#a7ddca"
+  "background_color": "#a7ddca",
+  "screenshots": [
+    {
+      "src": "images/learn.jpg",
+      "sizes": "320x640",
+      "type": "image/png"
+    },
+    {
+      "src": "images/learn2.jpg",
+      "sizes": "320x640",
+      "type": "image/png"
+    }
+  ]
 }
