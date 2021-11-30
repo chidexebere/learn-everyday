@@ -32,3 +32,10 @@ export type QuestionsObject = {
     },
   ];
 };
+
+export type OptionsObject = {
+  a: string;
+  b: string;
+  c: string;
+  d: string;
+};
