@@ -1,10 +1,9 @@
 export const fetchQuizQuestions = async (
-  totalQuestions: number,
   subject: string,
   year: number,
   type: string,
 ) => {
-  const endpoint = `https://questions.aloc.ng/api/v2/q/${totalQuestions}?subject=${subject}&year=${year}&type=${type}`;
+  const endpoint = `https://questions.aloc.ng/api/v2/q/30?subject=${subject}&year=${year}&type=${type}`;
   const fetchRequest = fetch(endpoint, {
     method: 'GET',
     headers: {
