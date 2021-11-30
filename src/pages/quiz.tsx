@@ -60,6 +60,13 @@ const Quiz: FC<QuizProps> = ({
   const type = questionType;
 
   const { data } = questions;
+  const newData = data;
+
+  // const dataSet = data;
+  // console.log(`dataSet: ${dataSet}`);
+  // const newData = dataSet.splice(0, totalQuestions);
+  console.log(newData);
+
   const nextQ = number + 1;
   let answerObject: AnswerObject;
 
@@ -77,12 +84,7 @@ const Quiz: FC<QuizProps> = ({
     setProgressBarColor('is-success');
     setGameOver(false);
     try {
-      newQuestions = await fetchQuizQuestions(
-        totalQuestions,
-        subject,
-        year,
-        type,
-      );
+      newQuestions = await fetchQuizQuestions(subject, year, type);
       setQuestions(newQuestions);
     } catch (error) {
       setIsError(true);
@@ -93,17 +95,19 @@ const Quiz: FC<QuizProps> = ({
     setLoading(false);
   };
 
+  // console.log(data.length);
+
   // For Time for each question
   const startTimer = () => {
     const interval: number = window.setInterval(() => {
-      if (count < 100) {
-        if (count > 60) {
+      if (count < 50) {
+        if (count > 30) {
           setProgressBarColor('is-warning');
         }
-        if (count > 80) {
+        if (count > 40) {
           setProgressBarColor('is-danger');
         }
-        const updatedCount = count + 2;
+        const updatedCount = count + 1;
         setCount(updatedCount);
       }
     }, 1000);
@@ -129,10 +133,10 @@ const Quiz: FC<QuizProps> = ({
       // User's answer
       const { value } = e.target as HTMLButtonElement;
       const selected = value;
-      const answer = data[number].answer;
+      const answer = newData[number].answer;
 
       // Check answer against correct answer
-      const options = data[number].option;
+      const options = newData[number].option;
       const isCorrect = answer === getSelectedOption(options, selected);
 
       // Add score if answer is isCorrect
@@ -140,7 +144,7 @@ const Quiz: FC<QuizProps> = ({
 
       // Save the answer in the array for user answers
       const selectedObject = {
-        question: data[number].question,
+        question: newData[number].question,
         isCorrect,
         correctAnswer: filterAnswer(options, answer),
         selectedAnswer: selected,
@@ -153,10 +157,10 @@ const Quiz: FC<QuizProps> = ({
 
   const checkAnswerWithNoSelection = () => {
     if (!gameOver) {
-      const answer = data[number].answer;
-      const options = data[number].option;
+      const answer = newData[number].answer;
+      const options = newData[number].option;
       const unselectedObject = {
-        question: data[number].question,
+        question: newData[number].question,
         correctAnswer: filterAnswer(options, answer),
       };
       answerObject = unselectedObject;
@@ -183,7 +187,7 @@ const Quiz: FC<QuizProps> = ({
       clearInterval(interval);
       clearTimeout(timerId);
     };
-  });
+  }, [gameOver, count]);
 
   return (
     <>
@@ -256,9 +260,9 @@ const Quiz: FC<QuizProps> = ({
 
           <QuizBox
             questionAnswered={number + 1}
-            section={data[number].section}
-            question={data[number].question}
-            options={Object.values(data[number].option)}
+            section={newData[number]?.section}
+            question={newData[number]?.question}
+            options={newData[number]?.option}
             userAnswer={userAnswers[number]}
             checkAnswer={checkAnswerAfterSelection}
             infoBox={infoBox}
