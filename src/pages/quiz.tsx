@@ -1,15 +1,16 @@
-import React, { FC, MouseEvent, useEffect, useState } from 'react';
+import React, { FC, MouseEvent, useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchQuizQuestions } from '../api/fetchData';
-import QuizBox from '../components/QuizBox';
-import Header from '../layout/Header';
-import ProgressBar from '../elements/ProgressBar';
-import Box from '../elements/Box';
 import { filterAnswer, getSelectedOption } from '../utils/helpers';
 import { AnswerObject, QuestionsObject } from '../utils/types';
 import Button from '../elements/Button';
 import Icon from '../elements/Icon';
 import Modal from '../components/Modal';
+import Error from './error';
+import Loading from './loading';
+import StartQuiz from './startQuiz';
+import PlayAgain from './playAgain';
+import PlayingQuiz from './playingQuiz';
 
 interface QuizProps {
   selectedYear: number;
@@ -76,7 +77,7 @@ const Quiz: FC<QuizProps> = ({
   };
 
   // Starts the quiz
-  const startTrivia = async () => {
+  const startQuiz = async () => {
     let newQuestions;
     setIsError(false);
     setLoading(true);
@@ -98,35 +99,21 @@ const Quiz: FC<QuizProps> = ({
   // console.log(data.length);
 
   // For Time for each question
-  const startTimer = () => {
-    const interval: number = window.setInterval(() => {
-      if (count < 50) {
-        if (count > 30) {
-          setProgressBarColor('is-warning');
-        }
-        if (count > 40) {
-          setProgressBarColor('is-danger');
-        }
-        const updatedCount = count + 1;
-        setCount(updatedCount);
-      }
-    }, 1000);
-    return interval;
-  };
-
-  const nextQuestion = () => {
-    const nextQuesTimeout: number = window.setTimeout(() => {
-      if (nextQ === totalQuestions) {
-        setGameOver(true);
-      } else {
-        if (count === 100) checkAnswerWithNoSelection();
-        setNumber(nextQ);
-        setCount(0);
-        setProgressBarColor('is-success');
-      }
-    }, 3000);
-    return nextQuesTimeout;
-  };
+  // const startTimer = useCallback(() => {
+  //   const interval: number = window.setInterval(() => {
+  //     if (count < 50) {
+  //       if (count > 30) {
+  //         setProgressBarColor('is-warning');
+  //       }
+  //       if (count > 40) {
+  //         setProgressBarColor('is-danger');
+  //       }
+  //       const updatedCount = count + 1;
+  //       setCount(updatedCount);
+  //     }
+  //   }, 1000);
+  //   return interval;
+  // }, []);
 
   const checkAnswerAfterSelection = (e: MouseEvent) => {
     if (!gameOver) {
@@ -155,7 +142,7 @@ const Quiz: FC<QuizProps> = ({
     }
   };
 
-  const checkAnswerWithNoSelection = () => {
+  const checkAnswerWithNoSelection = useCallback(() => {
     if (!gameOver) {
       const answer = newData[number].answer;
       const options = newData[number].option;
@@ -166,7 +153,21 @@ const Quiz: FC<QuizProps> = ({
       answerObject = unselectedObject;
       setUserAnswers((prev) => [...prev, answerObject]);
     }
-  };
+  }, [gameOver]);
+
+  const nextQuestion = useCallback(() => {
+    const nextQuesTimeout: number = window.setTimeout(() => {
+      if (nextQ === totalQuestions) {
+        setGameOver(true);
+      } else {
+        if (count === 100) checkAnswerWithNoSelection();
+        setNumber(nextQ);
+        setCount(0);
+        setProgressBarColor('is-success');
+      }
+    }, 3000);
+    return nextQuesTimeout;
+  }, [count, nextQ, checkAnswerWithNoSelection]);
 
   const scoreBoard = `Score : ${score}`;
   const questionBoard = `${number + 1} / ${totalQuestions}`;
@@ -177,7 +178,19 @@ const Quiz: FC<QuizProps> = ({
     let interval: number = 0;
     let timerId: number = 0;
     if (!gameOver) {
-      interval = startTimer();
+      interval = window.setInterval(() => {
+        if (count < 50) {
+          if (count > 30) {
+            setProgressBarColor('is-warning');
+          }
+          if (count > 40) {
+            setProgressBarColor('is-danger');
+          }
+          const updatedCount = count + 1;
+          setCount(updatedCount);
+        }
+      }, 1000);
+
       timerId = nextQuestion();
     } else {
       clearInterval(interval);
@@ -187,87 +200,39 @@ const Quiz: FC<QuizProps> = ({
       clearInterval(interval);
       clearTimeout(timerId);
     };
-  }, [gameOver, count]);
+  }, [gameOver, count, nextQuestion]);
 
   return (
     <>
       {gameOver && userAnswers.length === 0 && (
-        <div className="section">
-          <Button
-            variant="buttonTitle"
-            text="Start"
-            handleClick={startTrivia}
-          />
-          <Link to="/list">
-            <Button
-              variant="buttonTitle is-inverted is-outlined"
-              text="Back to Subjects"
-            />
-          </Link>
-        </div>
+        <StartQuiz startQuiz={startQuiz} />
       )}
 
       {gameOver && totalQuestions === number + 1 && (
-        <div className="section">
-          <Box variant="scoreSummary" text={scoreSummary} />
-          <Button
-            variant="buttonTitle"
-            text="Play Again"
-            handleClick={startTrivia}
-          />
-          <Link to="/">
-            <Button
-              variant="buttonTitle is-inverted is-outlined"
-              text="Go to New Quiz"
-            />
-          </Link>
-        </div>
+        <PlayAgain scoreSummary={scoreSummary} startQuiz={startQuiz} />
       )}
 
       {loading && (
-        <div className="section">
+        <Loading>
           <p className="title">Loading {totalQuestions} questions...</p>
-        </div>
+        </Loading>
       )}
 
-      {isError && (
-        <div className="section">
-          <p className="title">
-            Something went wrong, Please check your internet connection
-          </p>
-        </div>
-      )}
+      {isError && <Error />}
 
       {!loading && !gameOver && !isError && (
-        <>
-          <Header>
-            <ProgressBar
-              variant={progressBarColor}
-              progressCount={count.toString()}
-            />
-            <div className="header__buttom">
-              <div className="header__info">
-                <Box variant="scoreBoard" text={questionBoard} />
-                <p className="subtitle is-3">{scoreBoard}</p>
-              </div>
-              <Icon
-                variant="iconButton has-text-black"
-                fontType="fa fa-stop-circle"
-                handleClick={toggleModal}
-              />
-            </div>
-          </Header>
-
-          <QuizBox
-            questionAnswered={number + 1}
-            section={newData[number]?.section}
-            question={newData[number]?.question}
-            options={newData[number]?.option}
-            userAnswer={userAnswers[number]}
-            checkAnswer={checkAnswerAfterSelection}
-            infoBox={infoBox}
-          />
-        </>
+        <PlayingQuiz
+          progressBarColor={progressBarColor}
+          questionBoard={questionBoard}
+          scoreBoard={scoreBoard}
+          toggleModal={toggleModal}
+          count={count}
+          number={number}
+          newData={newData}
+          userAnswers={userAnswers}
+          checkAnswerAfterSelection={checkAnswerAfterSelection}
+          infoBox={infoBox}
+        />
       )}
 
       <Modal isOpen={showModal}>
