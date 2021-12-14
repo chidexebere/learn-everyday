@@ -41,7 +41,6 @@ const PlayingQuiz: React.FC<PlayingQuizProps> = ({
     newData,
     userAnswers,
     totalQuestions,
-    initialData,
   } = state;
 
   const [showModal, setShowModal] = useState(false);
@@ -140,9 +139,6 @@ const PlayingQuiz: React.FC<PlayingQuizProps> = ({
     answerArray.push(unselectedObject);
     dispatch({ type: UPDATE_USERANSWERS, payload: answerArray });
   };
-
-  console.log(initialData);
-  console.log(newData);
 
   return (
     <>
