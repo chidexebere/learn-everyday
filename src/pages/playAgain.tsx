@@ -1,19 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import Box from '../elements/Box';
 import Button from '../elements/Button';
+import { GET_QUESTIONS_SET, QUIZ_GAME_PLAYING } from '../store/constants';
+import { QuizContext } from '../store/contexts/quizContext';
 
-interface PlayAgainProps {
-  startQuiz: () => void;
-  scoreSummary: string;
-}
+const PlayAgain: React.FC = () => {
+  const { state, dispatch } = useContext(QuizContext);
+  const { score, initialData, totalQuestions } = state;
 
-const PlayAgain: React.FC<PlayAgainProps> = ({ startQuiz, scoreSummary }) => {
+  const scoreSummary = `You got ${score} out of ${totalQuestions}`;
+
+  // Starts the quiz
+  const playAgain = () => {
+    dispatch({ type: QUIZ_GAME_PLAYING });
+    const newData = initialData.splice(0, 5);
+    dispatch({ type: GET_QUESTIONS_SET, payload: newData });
+  };
+
   return (
     <div className="section">
       <Box variant="scoreSummary" text={scoreSummary} />
-      <Button variant="buttonTitle" text="Play Again" handleClick={startQuiz} />
+      <Button variant="buttonTitle" text="Play Again" handleClick={playAgain} />
       <Link to="/">
         <Button
           variant="buttonTitle is-inverted is-outlined"
