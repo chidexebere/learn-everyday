@@ -8,6 +8,9 @@
 # api key
 .env
 
+# eslint
+.eslintcache
+
 # testing
 /coverage
 
