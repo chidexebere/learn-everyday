@@ -5,6 +5,12 @@ export type AnswerObject = {
   selectedAnswer?: string;
 };
 
+export type SubjectsAndQuesObject = {
+  message: string;
+  status: number;
+  data: SubjectsAndQues[];
+};
+
 export type SubjectsAndQues = {
   subject: string;
   questions: number;
@@ -13,22 +19,24 @@ export type SubjectsAndQues = {
 export type QuestionsObject = {
   subject: string;
   status: number;
-  data: [
-    {
-      id: number;
-      question: string;
-      option: {
-        a: string;
-        b: string;
-        c: string;
-        d: string;
-      };
-      section: string;
-      image: string;
-      answer: string;
-      solution: string;
-      examtype: string;
-      examyear: string;
-    },
-  ];
+  data: DataObject[];
+};
+
+export type OptionsObject = {
+  a: string;
+  b: string;
+  c: string;
+  d: string;
+};
+
+export type DataObject = {
+  id: number;
+  question: string;
+  option: OptionsObject;
+  section: string;
+  image: string;
+  answer: string;
+  solution: string;
+  examtype: string;
+  examyear: string;
 };

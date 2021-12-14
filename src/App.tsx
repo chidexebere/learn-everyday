@@ -10,8 +10,9 @@ import Select from './pages/select';
 import Icon from './elements/Icon';
 import { fetchSubjectsPerYear } from './api/fetchData';
 import { SubjectsAndQues } from './utils/types';
+import QuizContextProvider from './store/contexts/quizContext';
 
-const App = () => {
+const App = (): JSX.Element => {
   const location = useLocation();
 
   const typePath = `/type`;
@@ -56,7 +57,7 @@ const App = () => {
     footer = <Footer />;
   }
 
-  const [subjectsPerYear, setSubjectsPerYear] = useState([]);
+  const [subjectsPerYear, setSubjectsPerYear] = useState<string[]>([]);
   const [selectedYear, setSelectedYear] = useState(0);
   const [selectedSubject, setSelectedSubject] = useState('');
   const [questionType, setQuestionType] = useState('');
@@ -115,11 +116,13 @@ const App = () => {
             />
           </Route>
           <Route path="/quiz" exact>
-            <Quiz
-              selectedYear={selectedYear}
-              questionType={questionType}
-              selectedSubject={selectedSubject}
-            />
+            <QuizContextProvider>
+              <Quiz
+                selectedYear={selectedYear}
+                questionType={questionType}
+                selectedSubject={selectedSubject}
+              />
+            </QuizContextProvider>
           </Route>
           <Route path="/select" exact>
             <Select

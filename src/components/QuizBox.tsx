@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '../elements/Box';
 import Button from '../elements/Button';
-import { AnswerObject } from '../utils/types';
+import { AnswerObject, OptionsObject } from '../utils/types';
 
 interface QuizBoxProps {
   /** question number to be answered in the quiz box*/
@@ -11,7 +11,7 @@ interface QuizBoxProps {
   /** question to be answered in the quiz box*/
   question: string;
   /** options  for question to be answered in the quiz box*/
-  options: string[];
+  options: OptionsObject;
   /** user answer*/
   userAnswer: AnswerObject;
   /** callback function passed to the onClick handler*/
@@ -51,7 +51,7 @@ const QuizBox: React.FC<QuizBoxProps> = ({
         </div>
       </article>
       <div className="quizbox__answers">
-        {options.map((answer, index) => (
+        {Object.values(options).map((answer, index) => (
           <Button
             key={index}
             variant={`buttonAnswer`}

@@ -1,10 +1,11 @@
+import { QuestionsObject, SubjectsAndQuesObject } from '../utils/types';
+
 export const fetchQuizQuestions = async (
-  totalQuestions: number,
   subject: string,
   year: number,
   type: string,
-) => {
-  const endpoint = `https://questions.aloc.ng/api/v2/q/${totalQuestions}?subject=${subject}&year=${year}&type=${type}`;
+): Promise<QuestionsObject> => {
+  const endpoint = `https://questions.aloc.com.ng/api/v2/q/30?subject=${subject}&year=${year}&type=${type}`;
   const fetchRequest = fetch(endpoint, {
     method: 'GET',
     headers: {
@@ -22,8 +23,10 @@ export const fetchQuizQuestions = async (
   throw new Error(response.statusText);
 };
 
-export const fetchSubjectsPerYear = async (year: number) => {
-  const endpoint = `https://questions.aloc.ng/api/metrics/subjects-available-for/${year}`;
+export const fetchSubjectsPerYear = async (
+  year: number,
+): Promise<SubjectsAndQuesObject> => {
+  const endpoint = `https://questions.aloc.com.ng/api/metrics/subjects-available-for/${year}`;
   const data = await (await fetch(endpoint)).json();
   return data;
 };
