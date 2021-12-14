@@ -5,8 +5,8 @@ export const questionYearEnd = 2016;
 export const getQuestionYears = (
   questionYearStart: number,
   questionYearEnd: number,
-) => {
-  let years: number[] = [];
+): number[] => {
+  const years: number[] = [];
   const startYear = questionYearStart;
   const endYear = questionYearEnd;
   years.push(startYear);
@@ -25,14 +25,17 @@ type Options = {
   d: string;
 };
 
-export const filterAnswer = (options: Options, answer: string) => {
+export const filterAnswer = (options: Options, answer: string): string => {
   const optionKeys = Object.keys(options);
   const filteredAnswerIndex = optionKeys.indexOf(answer);
   const optionValues = Object.values(options);
   return optionValues[filteredAnswerIndex];
 };
 
-export const getSelectedOption = (options: Options, selected: string) => {
+export const getSelectedOption = (
+  options: Options,
+  selected: string,
+): string => {
   const optionValues = Object.values(options);
   const optionKeys = Object.keys(options);
   const selectedAnswerIndex = optionValues.indexOf(selected);
