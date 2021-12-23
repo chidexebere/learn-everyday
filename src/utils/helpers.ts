@@ -25,6 +25,7 @@ type Options = {
   d: string;
 };
 
+// This gets the actual value answer string from each question data
 export const filterAnswer = (options: Options, answer: string): string => {
   const optionKeys = Object.keys(options);
   const filteredAnswerIndex = optionKeys.indexOf(answer);
@@ -32,6 +33,7 @@ export const filterAnswer = (options: Options, answer: string): string => {
   return optionValues[filteredAnswerIndex];
 };
 
+// This gets the selected option key of the user
 export const getSelectedOption = (
   options: Options,
   selected: string,

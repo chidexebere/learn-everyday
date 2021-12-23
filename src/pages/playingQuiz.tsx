@@ -60,7 +60,6 @@ const PlayingQuiz: React.FC<PlayingQuizProps> = ({
   useEffect(() => {
     let interval = 0;
     interval = window.setInterval(() => {
-      if (count === 100) checkAnswerWithNoSelection();
       if (count < 100) {
         if (count > 60) {
           dispatch({ type: SET_WARNING_PROGRESS });
@@ -81,6 +80,7 @@ const PlayingQuiz: React.FC<PlayingQuizProps> = ({
     let timerId = 0;
 
     timerId = window.setTimeout(() => {
+      checkAnswerWithNoSelection();
       if (nextQ === totalQuestions) {
         dispatch({ type: QUIZ_GAME_OVER });
       } else {
@@ -134,7 +134,9 @@ const PlayingQuiz: React.FC<PlayingQuizProps> = ({
     const options = newData[number].option;
     const unselectedObject = {
       question: newData[number].question,
+      isCorrect: undefined,
       correctAnswer: filterAnswer(options, answer),
+      selectedAnswer: undefined,
     };
     answerArray.push(unselectedObject);
     dispatch({ type: UPDATE_USERANSWERS, payload: answerArray });

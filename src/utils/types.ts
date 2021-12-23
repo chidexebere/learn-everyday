@@ -1,8 +1,8 @@
 export type AnswerObject = {
   question: string;
-  isCorrect?: boolean;
+  isCorrect?: boolean | undefined;
   correctAnswer: string;
-  selectedAnswer?: string;
+  selectedAnswer?: string | undefined;
 };
 
 export type SubjectsAndQuesObject = {

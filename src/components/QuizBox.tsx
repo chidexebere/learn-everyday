@@ -51,18 +51,16 @@ const QuizBox: React.FC<QuizBoxProps> = ({
         </div>
       </article>
       <div className="quizbox__answers">
-        {Object.values(options).map((answer, index) => (
+        {Object.values(options).map((option, index) => (
           <Button
             key={index}
             variant={`buttonAnswer`}
-            text={answer}
+            text={option}
             isDisabled={userAnswer ? true : false}
-            value={answer}
+            value={option}
             handleClick={checkAnswer}
-            correct={userAnswer?.correctAnswer === answer}
-            userClicked={
-              userAnswer ? userAnswer.selectedAnswer === answer : undefined
-            }
+            correct={userAnswer?.correctAnswer === option}
+            userClicked={userAnswer?.selectedAnswer === option}
           />
         ))}
       </div>
